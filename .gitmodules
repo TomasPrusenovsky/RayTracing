@@ -1,0 +1,8 @@
+[submodule "vendor/ImGui"]
+	path = vendor/ImGui
+	url = https://github.com/TomasPrusenovsky/imgui.git
+	branch = docking
+[submodule "vendor/glfw"]
+	path = vendor/glfw
+	url = https://github.com/glfw/glfw.git
+	branch = 3.3-stable

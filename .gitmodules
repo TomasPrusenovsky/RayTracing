@@ -1,11 +1,10 @@
-[submodule "vendor/ImGui"]
-	path = Editor/vendor/ImGui
-	url = https://github.com/TomasPrusenovsky/imgui.git
-	branch = docking
-[submodule "vendor/glfw"]
-	path = Editor/vendor/glfw
-	url = https://github.com/glfw/glfw.git
-	branch = 3.3-stable
 [submodule "RayTracer/vendor/glm"]
 	path = RayTracer/vendor/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "Editor/vendor/ImGui"]
+	path = Editor/vendor/ImGui
+	url = https://github.com/TomasPrusenovsky/imgui.git
+	branch = docking
+[submodule "Editor/vendor/glfw"]
+	path = Editor/vendor/glfw
+	url = https://github.com/glfw/glfw.git

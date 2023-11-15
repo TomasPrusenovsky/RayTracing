@@ -2,7 +2,8 @@
 #define EDITOR_H
 
 #include "Window.h"
-
+#include <memory>
+#include "ImGui/ImGuiLayer.h"
 
 class Editor {
 public:
@@ -11,7 +12,7 @@ public:
     void Run();
 private:
     Window m_Window;
-
+    ImGuiLayer m_ImGui;
 };
 
 

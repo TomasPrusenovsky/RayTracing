@@ -14,6 +14,8 @@ add_executable(Editor Editor/src/main.cpp
         Editor/src/Window.h
         Editor/src/Editor.cpp
         Editor/src/Editor.h
+        Editor/src/ImGui/ImGuiLayer.cpp
+        Editor/src/ImGui/ImGuiLayer.h
 )
 
 target_link_libraries(Editor PRIVATE ImGui)

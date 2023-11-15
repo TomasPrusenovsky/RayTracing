@@ -13,15 +13,17 @@ Window::Window(const std::string &name, const int width, const int height) :
         if (!success) {
             std::cerr << "Failed to initialize Window" << std::endl;
         }
+        s_GLFWisInitialized = true;
     }
 
-    if (!s_OpenGLInitialized)
-        InitializeOpenGL();
 
     m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+    glfwMakeContextCurrent(m_Window);
     s_GLFWisInitialized = true;
 
     glfwSetWindowUserPointer(m_Window, &m_Data);
+    InitializeOpenGL();
+
     GLFWCallBacks();
 }
 
@@ -42,11 +44,13 @@ void Window::OnUpdate() const {
 }
 
 void Window::InitializeOpenGL() {
-    gladLoadGL();
+    s_OpenGLInitialized = true;
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    if(!gladLoadGL())
+        std::cerr << "Error loading OpenGL!" << std::endl;
 }
 
 void Window::GLFWCallBacks() {

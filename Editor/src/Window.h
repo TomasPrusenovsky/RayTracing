@@ -8,7 +8,7 @@
 class Window {
 public:
     Window(
-        const std::string& name,
+        const std::string&name,
         int width = 1280,
         int height = 720);
 
@@ -23,9 +23,13 @@ public:
 
     bool IsRunning() const { return m_Data.ShouldRun; }
 
+    GLFWwindow* GetWinPtr() const { return m_Window; }
+
 private:
     static void InitializeOpenGL();
+
     void GLFWCallBacks();
+
 private:
     GLFWwindow* m_Window = nullptr;
     static bool s_GLFWisInitialized;

@@ -12,6 +12,8 @@ add_subdirectory(RayTracer)
 add_executable(Editor Editor/src/main.cpp
         Editor/src/Window.cpp
         Editor/src/Window.h
+        Editor/src/Editor.cpp
+        Editor/src/Editor.h
 )
 
 target_link_libraries(Editor PRIVATE ImGui)

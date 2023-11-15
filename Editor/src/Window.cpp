@@ -1,23 +1,64 @@
-//
-// Created by tomas on 11/6/2023.
-//
 #include "rtpch.h"
 #include "Window.h"
+#include "glad/glad.h"
 
-namespace Editor {
 
-    bool Window::s_GLFWisInitialize = false;
+bool Window::s_GLFWisInitialized = false;
+bool Window::s_OpenGLInitialized = false;
 
-    Window::Window(const std::string &name, const int width, const int height) :
-            m_Data(name, width, height) {
-
-        if (!s_GLFWisInitialize) {
-            int success = glfwInit();
-            if (!success) {
-                std::cerr << "Failed to initialize Window" << std::endl;
-            }
-            m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-            s_GLFWisInitialize = true;
+Window::Window(const std::string &name, const int width, const int height) :
+        m_Data(name, width, height) {
+    if (!s_GLFWisInitialized) {
+        int success = glfwInit();
+        if (!success) {
+            std::cerr << "Failed to initialize Window" << std::endl;
         }
     }
-} // Editor
+
+    if (!s_OpenGLInitialized)
+        InitializeOpenGL();
+
+    m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+    s_GLFWisInitialized = true;
+
+    glfwSetWindowUserPointer(m_Window, &m_Data);
+    GLFWCallBacks();
+}
+
+Window::~Window() {
+    glfwDestroyWindow(m_Window);
+    glfwTerminate();
+    s_GLFWisInitialized = false;
+}
+
+void Window::SetVSync(bool enabled) {
+    m_Data.VSync = enabled;
+    glfwSwapInterval(m_Data.VSync);
+}
+
+void Window::OnUpdate() const {
+    glfwPollEvents();
+    glfwSwapBuffers(m_Window);
+}
+
+void Window::InitializeOpenGL() {
+    gladLoadGL();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
+
+void Window::GLFWCallBacks() {
+
+    glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
+        WinData& data = *static_cast<WinData *>(glfwGetWindowUserPointer(window));
+        data.ShouldRun = false;
+    });
+
+    glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
+        WinData& data = *static_cast<WinData *>(glfwGetWindowUserPointer(window));
+        data.Width = width;
+        data.Height = height;
+    });
+}

@@ -1,41 +1,44 @@
-//
-// Created by tomas on 11/6/2023.
-//
-
 #ifndef RAYTRACING_WINDOW_H
 #define RAYTRACING_WINDOW_H
 
 
 #include "rtpch.h"
-#include "../../vendor/glfw/include/GLFW/glfw3.h"
+#include "GLFW/glfw3.h"
 
-namespace Editor {
+class Window {
+public:
+    Window(
+        const std::string& name,
+        int width = 1280,
+        int height = 720);
 
-    class Window {
-    public:
-        Window(
-                const std::string &name = "Ray Tracer",
-                int width = 1280,
-                int height = 720);
+    ~Window();
 
-        void SetVSync(const bool enabled) { m_Data.VSync = enabled; }
+    void SetVSync(bool enabled);
 
-        int GetWidth() const { return m_Data.Width; }
-        int GetHeight() const { return m_Data.Height; }
+    void OnUpdate() const;
 
-    private:
-        GLFWwindow *m_Window = nullptr;
-        static bool s_GLFWisInitialize;
+    int GetWidth() const { return m_Data.Width; }
+    int GetHeight() const { return m_Data.Height; }
 
-        struct WinData {
-            std::string Title;
-            int Width, Height;
-            bool VSync = true;
-        };
+    bool IsRunning() const { return m_Data.ShouldRun; }
 
-        WinData m_Data;
+private:
+    static void InitializeOpenGL();
+    void GLFWCallBacks();
+private:
+    GLFWwindow* m_Window = nullptr;
+    static bool s_GLFWisInitialized;
+    static bool s_OpenGLInitialized;
+
+    struct WinData {
+        std::string Title;
+        int Width, Height;
+        bool VSync = true;
+        bool ShouldRun = true;
     };
 
-} // Editor
+    WinData m_Data;
+};
 
 #endif //RAYTRACING_WINDOW_H

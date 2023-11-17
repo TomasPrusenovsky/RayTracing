@@ -7,8 +7,8 @@ set(GLM_DIRS vendor/glm)
 add_subdirectory(${GLM_DIRS})
 
 add_library(RayTracer
-        src/Hello.cpp
-        src/Hello.h
+        src/RayTracer.cpp
+        src/RayTracer.h
 )
 
 target_link_libraries(RayTracer PRIVATE glm)

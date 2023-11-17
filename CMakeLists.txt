@@ -16,6 +16,8 @@ add_executable(Editor Editor/src/main.cpp
         Editor/src/Editor.h
         Editor/src/ImGui/ImGuiLayer.cpp
         Editor/src/ImGui/ImGuiLayer.h
+        Editor/src/ImGui/Platform/Platforms.h
+        Editor/src/ImGui/Platform/Platforms.cpp
 )
 
 target_link_libraries(Editor PRIVATE ImGui)
@@ -30,6 +32,17 @@ target_include_directories(Editor PRIVATE ${GLFW_INCLUDE_DIRS})
 target_include_directories(Editor PRIVATE RayTracer/src)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLFW_INCLUDE_NONE")
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    message("Configuring for Windows")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "PLATFORM_WINDOWS=1")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    message("Configuring for Linux")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "PLATFORM_LINUX=1")
+else()
+    message(FATAL_ERROR "Unsupported operating system: ${CMAKE_SYSTEM_NAME}")
+endif()
+
 
 #if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 #    target_precompile_headers(RayTracing PRIVATE ${PRECOMPILED_HEADER})

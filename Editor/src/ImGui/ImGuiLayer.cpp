@@ -4,6 +4,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "glad/glad.h"
+#include <iostream>
+#include "Platform/Platforms.h"
 
 ImGuiLayer::ImGuiLayer(GLFWwindow* window) :
     m_GLFWwindow(window)
@@ -25,18 +27,20 @@ void ImGuiLayer::Init() {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
     ImGui::StyleColorsDark();
+    io.FontGlobalScale = Platform::GetImGuiDpiScale();
 
     ImGui_ImplGlfw_InitForOpenGL(m_GLFWwindow, true);
     ImGui_ImplOpenGL3_Init(m_GLSL_version.c_str());
-
 }
 
 void ImGuiLayer::OnUpdate() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGui::DockSpaceOverViewport();
 
     ImGui::ShowDemoWindow();
 }

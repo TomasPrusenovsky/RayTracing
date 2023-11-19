@@ -4,6 +4,7 @@
 
 #include <string>
 #include "GLFW/glfw3.h"
+#include "../OpenGL/Texture.h"
 
 class ImGuiLayer {
 public:
@@ -15,9 +16,15 @@ public:
 
 private:
     void Init();
-private:
-    const std::string m_GLSL_version = "#version 460";
+
+    const std::string m_GLSL_version = "#version 400";
     GLFWwindow* m_GLFWwindow = nullptr;
+
+    OpenGL::Texture m_Texture;
+
+    int width = 1280;
+    int height = 720;
+
 };
 
 #endif //IMGUILAYER_H

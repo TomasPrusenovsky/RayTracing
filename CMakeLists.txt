@@ -18,6 +18,10 @@ add_executable(Editor Editor/src/main.cpp
         Editor/src/ImGui/ImGuiLayer.h
         Editor/src/ImGui/Platform/Platforms.h
         Editor/src/ImGui/Platform/Platforms.cpp
+        Editor/src/OpenGL/OpenGL.cpp
+        Editor/src/OpenGL/OpenGL.h
+        Editor/src/OpenGL/Texture.cpp
+        Editor/src/OpenGL/Texture.h
 )
 
 target_link_libraries(Editor PRIVATE ImGui)
@@ -33,21 +37,18 @@ target_include_directories(Editor PRIVATE RayTracer/src)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLFW_INCLUDE_NONE")
 
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     message("Configuring for Windows")
     target_compile_definitions(${PROJECT_NAME} PUBLIC "PLATFORM_WINDOWS=1")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     message("Configuring for Linux")
+    find_package(X11 REQUIRED)
+    target_include_directories(Editor PRIVATE ${X11_INCLUDE_DIR})
+    target_link_libraries(Editor PRIVATE ${X11_LIBRARIES})
     target_compile_definitions(${PROJECT_NAME} PUBLIC "PLATFORM_LINUX=1")
 else()
     message(FATAL_ERROR "Unsupported operating system: ${CMAKE_SYSTEM_NAME}")
 endif()
-
-
-#if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-#    target_precompile_headers(RayTracing PRIVATE ${PRECOMPILED_HEADER})
-#else()
-#    set_source_files_properties(${PRECOMPILED_HEADER} PROPERTIES COMPILE_FLAGS "-x c++-header")
-#    target_sources(RayTracing PRIVATE ${PRECOMPILED_HEADER})
-#endif()
 

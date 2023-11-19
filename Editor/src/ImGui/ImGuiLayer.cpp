@@ -1,4 +1,3 @@
-
 #include "ImGuiLayer.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -6,10 +5,11 @@
 #include "glad/glad.h"
 #include <iostream>
 #include "Platform/Platforms.h"
+#include "../OpenGL/OpenGL.h"
 
-ImGuiLayer::ImGuiLayer(GLFWwindow* window) :
-    m_GLFWwindow(window)
-{
+#include <random>
+
+ImGuiLayer::ImGuiLayer(GLFWwindow* window) : m_GLFWwindow(window) {
     Init();
 }
 
@@ -22,11 +22,12 @@ ImGuiLayer::~ImGuiLayer() {
 void ImGuiLayer::Init() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+    ImGuiIO&io = ImGui::GetIO();
+    (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Enable Multi-Viewport / Platform Windows
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
     ImGui::StyleColorsDark();
@@ -47,11 +48,10 @@ void ImGuiLayer::OnUpdate() {
 
 void ImGuiLayer::Render() {
     ImGui::Render();
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    OpenGL::ClearColor(0, 0, 0, 1);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
+
+    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
         GLFWwindow* backup_current_context = glfwGetCurrentContext();
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();

@@ -22,7 +22,7 @@ namespace Platform {
 #elif PLATFORM_LINUX
 #include <X11/Xlib.h>
 
-namespace Platform
+namespace Platform {
     float GetImGuiDpiScale()
     {
         Display* display = XOpenDisplay(NULL);

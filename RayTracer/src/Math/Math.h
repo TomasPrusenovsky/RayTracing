@@ -3,12 +3,8 @@
 
 #include <glm/glm.hpp>
 
-namespace rt {
-class Math {
-public:
-    static float length_squared(const glm::vec3 vec);
-};
-
-} // rt
+namespace Math {
+    float length_squared(const glm::vec3& vec);
+}
 
 #endif //MATH_H

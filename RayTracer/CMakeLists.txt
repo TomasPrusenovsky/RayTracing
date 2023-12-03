@@ -23,6 +23,8 @@ add_library(RayTracer
         src/Math/Math.h
         src/Scene/Scene.cpp
         src/Scene/Scene.h
+        src/Math/Random.cpp
+        src/Math/Random.h
 )
 
 target_link_libraries(RayTracer PRIVATE glm)

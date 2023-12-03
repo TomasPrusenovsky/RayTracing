@@ -6,8 +6,10 @@ namespace OpenGL {
     }
 
     void Texture::Update(int width, int height, const float* data) {
+        glBindTexture(GL_TEXTURE_2D, m_ID);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, data);
         glGenerateMipmap(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     void Texture::CreateTexture() {

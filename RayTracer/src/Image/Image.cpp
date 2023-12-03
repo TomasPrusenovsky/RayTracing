@@ -1,4 +1,3 @@
-
 #include "Image.h"
 
 namespace rt {
@@ -14,5 +13,14 @@ namespace rt {
 
     Image::~Image() {
         delete[] m_Data;
+    }
+
+    void Image::SetPixel(uint32_t x, uint32_t y, color color) {
+        uint32_t index = (y * m_Windth + x) * m_Chanels;
+        m_Data[index + 0] = color.r;
+        m_Data[index + 1] = color.g;
+        m_Data[index + 2] = color.b;
+        m_Data[index + 3] = color.a;
+
     }
 } // rt

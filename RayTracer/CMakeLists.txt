@@ -21,6 +21,8 @@ add_library(RayTracer
         src/Utils/Shapes/Sphere.h
         src/Math/Math.cpp
         src/Math/Math.h
+        src/Scene/Scene.cpp
+        src/Scene/Scene.h
 )
 
 target_link_libraries(RayTracer PRIVATE glm)

@@ -9,7 +9,7 @@ namespace OpenGL {
 
         GLuint GetID() const { return m_ID; }
 
-        void Update(int width, int height, float* data);
+        void Update(int width, int height, const float* data);
 
     private:
         void CreateTexture();

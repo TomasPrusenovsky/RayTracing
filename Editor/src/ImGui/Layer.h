@@ -4,10 +4,11 @@
 
 
 
-class ImGuiLayer {
+class Layer {
 public:
-    virtual ~ImGuiLayer() = default;
+    virtual ~Layer() = default;
     virtual void OnUpdate() = 0;
+    virtual void OnImGuiUpdate() = 0;
 };
 
 

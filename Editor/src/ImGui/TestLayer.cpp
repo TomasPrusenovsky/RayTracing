@@ -4,20 +4,18 @@
 #include <iostream>
 
 
-TestLayer::TestLayer() {
-    int width = 800;
-    int height = 1000;
-    uint32_t size = width * height * 4;
-    auto* image = new float[size];
-
-    for (int i = 0; i < size; ++i) {
-        image[i] = 1.0f;
-    }
-    m_Image.Update(width, height, image);
-    delete[] image;
+TestLayer::TestLayer() :
+        m_RayTracer(1200, 800) {
 }
 
 void TestLayer::OnUpdate() {
+    const rt::Image& image = m_RayTracer.GetImage();
+    m_ImageTexture.Update(image.GetWidth(), image.GetHeight(), image.GetData());
+}
+
+void TestLayer::OnImGuiUpdate() {
+    const rt::Image& image = m_RayTracer.GetImage();
+
     ImGui::Begin("Test window");
     if (ImGui::Button("Hello button"))
         std:: cout << "Hello world" << std::endl;
@@ -25,7 +23,7 @@ void TestLayer::OnUpdate() {
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
     ImGui::Begin("Image");
-    ImGui::Image((ImTextureID)m_Image.GetID(), {800, 1000});
+    ImGui::Image((ImTextureID)m_ImageTexture.GetID(), {static_cast<float>(image.GetWidth()), static_cast<float>(image.GetHeight())});
     ImGui::End();
     ImGui::PopStyleVar();
 }

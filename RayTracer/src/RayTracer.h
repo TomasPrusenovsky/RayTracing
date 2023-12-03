@@ -1,18 +1,20 @@
-
 #ifndef RAYTRACER_H
 #define RAYTRACER_H
 
-#include <glm/glm.hpp>
+#include "Camera.h"
+#include "Image/Image.h"
 
 namespace rt {
 class RayTracer {
 public:
-    RayTracer();
+    RayTracer(int width, int height);
+
+    void Trace();
+    const Image& GetImage() const { return m_Image; }
 
 private:
-
-
-
+    // Camera m_Camera;
+    Image m_Image;
 };
 
 } // rt

@@ -10,8 +10,11 @@ void Editor::Run() {
     while (m_Window.IsRunning()) {
         m_ImGui.OnUpdate();
 
-        for (auto&layer: m_ImGuiLayers)
+        for (auto&& layer: m_ImGuiLayers)
             layer->OnUpdate();
+
+        for (auto&& layer : m_ImGuiLayers)
+            layer->OnImGuiUpdate();
 
         m_ImGui.Render();
         m_Window.OnUpdate();

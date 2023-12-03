@@ -10,8 +10,8 @@ add_subdirectory(Editor/vendor/glad)
 add_subdirectory(RayTracer)
 
 add_executable(Editor Editor/src/main.cpp
-        Editor/src/Window.cpp
-        Editor/src/Window.h
+        Editor/src/Window/Window.cpp
+        Editor/src/Window/Window.h
         Editor/src/Editor.cpp
         Editor/src/Editor.h
         Editor/src/ImGui/ImGuiRenderer.cpp
@@ -22,7 +22,7 @@ add_executable(Editor Editor/src/main.cpp
         Editor/src/OpenGL/OpenGL.h
         Editor/src/OpenGL/Texture.cpp
         Editor/src/OpenGL/Texture.h
-        Editor/src/ImGui/ImGuiLayer.h
+        Editor/src/ImGui/Layer.h
         Editor/src/ImGui/TestLayer.cpp
         Editor/src/ImGui/TestLayer.h
 )
@@ -30,6 +30,7 @@ add_executable(Editor Editor/src/main.cpp
 target_link_libraries(Editor PRIVATE ImGui)
 target_link_libraries(Editor PRIVATE glfw)
 target_link_libraries(Editor PRIVATE glad)
+target_link_libraries(Editor PRIVATE glm)
 target_link_libraries(Editor PRIVATE RayTracer)
 
 target_include_directories(Editor PRIVATE Editor/vendor/ImGui)

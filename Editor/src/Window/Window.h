@@ -1,8 +1,7 @@
 #ifndef RAYTRACING_WINDOW_H
 #define RAYTRACING_WINDOW_H
 
-
-#include "rtpch.h"
+#include "../rtpch.h"
 #include "GLFW/glfw3.h"
 
 class Window {

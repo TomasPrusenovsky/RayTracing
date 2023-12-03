@@ -1,4 +1,4 @@
-#include "rtpch.h"
+#include "../rtpch.h"
 #include "Window.h"
 #include "glad/glad.h"
 

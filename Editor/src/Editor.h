@@ -1,12 +1,12 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include "Window.h"
+#include "Window/Window.h"
 #include <memory>
 #include <vector>
 
 #include "ImGui/ImGuiRenderer.h"
-#include "ImGui/ImGuiLayer.h"
+#include "ImGui/Layer.h"
 
 class Editor {
 public:
@@ -14,11 +14,11 @@ public:
 
     void Run();
 private:
-    using ImGuiLayers = std::vector<std::unique_ptr<ImGuiLayer>>;
+    using Layers = std::vector<std::unique_ptr<Layer>>;
 
     Window m_Window;
     ImGuiRenderer m_ImGui;
-    ImGuiLayers m_ImGuiLayers;
+    Layers m_ImGuiLayers;
 };
 
 

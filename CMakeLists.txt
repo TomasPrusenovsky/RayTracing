@@ -14,14 +14,17 @@ add_executable(Editor Editor/src/main.cpp
         Editor/src/Window.h
         Editor/src/Editor.cpp
         Editor/src/Editor.h
-        Editor/src/ImGui/ImGuiLayer.cpp
-        Editor/src/ImGui/ImGuiLayer.h
+        Editor/src/ImGui/ImGuiRenderer.cpp
+        Editor/src/ImGui/ImGuiRenderer.h
         Editor/src/ImGui/Platform/Platforms.h
         Editor/src/ImGui/Platform/Platforms.cpp
         Editor/src/OpenGL/OpenGL.cpp
         Editor/src/OpenGL/OpenGL.h
         Editor/src/OpenGL/Texture.cpp
         Editor/src/OpenGL/Texture.h
+        Editor/src/ImGui/ImGuiLayer.h
+        Editor/src/ImGui/TestLayer.cpp
+        Editor/src/ImGui/TestLayer.h
 )
 
 target_link_libraries(Editor PRIVATE ImGui)
@@ -34,6 +37,8 @@ target_include_directories(Editor PRIVATE Editor/vendor/ImGui/backends)
 target_include_directories(Editor PRIVATE Editor/vendor/glad/include)
 target_include_directories(Editor PRIVATE ${GLFW_INCLUDE_DIRS})
 target_include_directories(Editor PRIVATE RayTracer/src)
+
+target_precompile_headers(Editor PRIVATE ${PRECOMPILED_HEADER})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLFW_INCLUDE_NONE")
 

@@ -19,6 +19,7 @@ Window::Window(const std::string &name, const int width, const int height) :
 
     m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(m_Window);
+    SetVSync(true);
     s_GLFWisInitialized = true;
 
     glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -54,7 +55,6 @@ void Window::InitializeOpenGL() {
 }
 
 void Window::GLFWCallBacks() {
-
     glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
         WinData& data = *static_cast<WinData *>(glfwGetWindowUserPointer(window));
         data.ShouldRun = false;

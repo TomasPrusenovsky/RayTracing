@@ -9,6 +9,18 @@ add_subdirectory(${GLM_DIRS})
 add_library(RayTracer
         src/RayTracer.cpp
         src/RayTracer.h
+        src/Utils/Ray.cpp
+        src/Utils/Ray.h
+        src/Camera.cpp
+        src/Camera.h
+        src/Image/Image.cpp
+        src/Image/Image.h
+        src/Utils/Shapes/Shape.h
+        src/Utils/Material.h
+        src/Utils/Shapes/Sphere.cpp
+        src/Utils/Shapes/Sphere.h
+        src/Math/Math.cpp
+        src/Math/Math.h
 )
 
 target_link_libraries(RayTracer PRIVATE glm)

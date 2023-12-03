@@ -1,25 +1,22 @@
-#include "ImGuiLayer.h"
-#include "imgui.h"
+#include "ImGuiRenderer.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "glad/glad.h"
 #include <iostream>
 #include "Platform/Platforms.h"
 #include "../OpenGL/OpenGL.h"
 
-#include <random>
 
-ImGuiLayer::ImGuiLayer(GLFWwindow* window) : m_GLFWwindow(window) {
+ImGuiRenderer::ImGuiRenderer(GLFWwindow* window) : m_GLFWwindow(window) {
     Init();
 }
 
-ImGuiLayer::~ImGuiLayer() {
+ImGuiRenderer::~ImGuiRenderer() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
 
-void ImGuiLayer::Init() {
+void ImGuiRenderer::Init() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO&io = ImGui::GetIO();
@@ -37,16 +34,14 @@ void ImGuiLayer::Init() {
     ImGui_ImplOpenGL3_Init(m_GLSL_version.c_str());
 }
 
-void ImGuiLayer::OnUpdate() {
+void ImGuiRenderer::OnUpdate() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     ImGui::DockSpaceOverViewport();
-
-    ImGui::ShowDemoWindow();
 }
 
-void ImGuiLayer::Render() {
+void ImGuiRenderer::Render() {
     ImGui::Render();
     OpenGL::ClearColor(0, 0, 0, 1);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -6,9 +6,7 @@ namespace rt {
         uint32_t imageSize = m_Windth * m_Height * m_Chanels;
         m_Data = new float[imageSize];
 
-        for (uint32_t i = 0; i < imageSize; ++i) { // initialize it with white
-            m_Data[i] = 1.0f;
-        }
+        IterResize(heigh);
     }
 
     Image::~Image() {
@@ -22,5 +20,11 @@ namespace rt {
         m_Data[index + 2] = color.b;
         m_Data[index + 3] = color.a;
 
+    }
+    void Image::IterResize(uint32_t newSize)
+    {
+        m_VerticalIter.resize(newSize);
+        for (int i = 0; i < newSize; ++i)
+            m_VerticalIter[i] = i;
     }
 } // rt

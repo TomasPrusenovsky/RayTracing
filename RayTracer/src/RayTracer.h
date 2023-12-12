@@ -18,11 +18,6 @@ namespace rt
 		const Image& GetImage() const { return *m_Image; }
 
 	private:
-		// TODO: move this to image class
-		using Iterator = std::vector<uint32_t>;
-		Iterator m_VerticalIter;
-		void IterResize(uint32_t width);
-		////////////////////////////////////////////////
 		Camera m_Camera;
 		std::unique_ptr<Image> m_Image;
 		const Scene* m_ActiveScene = nullptr;

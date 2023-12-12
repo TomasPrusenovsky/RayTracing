@@ -9,23 +9,11 @@ add_subdirectory(Editor/vendor/glfw)
 add_subdirectory(Editor/vendor/glad)
 add_subdirectory(RayTracer)
 
-add_executable(Editor Editor/src/main.cpp
-        Editor/src/Window/Window.cpp
-        Editor/src/Window/Window.h
-        Editor/src/Editor.cpp
-        Editor/src/Editor.h
-        Editor/src/ImGui/ImGuiRenderer.cpp
-        Editor/src/ImGui/ImGuiRenderer.h
-        Editor/src/ImGui/Platform/Platforms.h
-        Editor/src/ImGui/Platform/Platforms.cpp
-        Editor/src/OpenGL/OpenGL.cpp
-        Editor/src/OpenGL/OpenGL.h
-        Editor/src/OpenGL/Texture.cpp
-        Editor/src/OpenGL/Texture.h
-        "Editor/src/Layer/Layer.h"
-        "Editor/src/Layer/TestLayer.cpp"
-        "Editor/src/Layer/TestLayer.h"
-)
+file(GLOB_RECURSE SOURCES "Editor/src/*.cpp" "Editor/src/*/*.cpp" "Editor/src/*/*/*.cpp" "Editor/src/*/*/*/*.cpp")
+
+
+add_executable(Editor)
+target_sources(Editor PRIVATE ${SOURCES})
 
 target_link_libraries(Editor PRIVATE ImGui)
 target_link_libraries(Editor PRIVATE glfw)

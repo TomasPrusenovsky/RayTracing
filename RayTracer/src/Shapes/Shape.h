@@ -1,6 +1,5 @@
-#ifndef SHAPE_H
-#define SHAPE_H
-#include "../Ray.h"
+#pragma once
+#include "Utils/Ray.h"
 
 namespace rt {
     class Shape {
@@ -12,4 +11,3 @@ namespace rt {
         Material m_Material = {};
     };
 }
-#endif //SHAPE_H

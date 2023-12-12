@@ -1,5 +1,5 @@
 #include "Sphere.h"
-#include "../../Math/Math.h"
+#include "Math/Math.h"
 
 namespace rt {
     Sphere::Sphere(float radius, point position, Material material) :

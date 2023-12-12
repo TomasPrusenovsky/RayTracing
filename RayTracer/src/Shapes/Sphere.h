@@ -1,6 +1,4 @@
-#ifndef SPHERE_H
-#define SPHERE_H
-
+#pragma once
 #include "Shape.h"
 
 namespace rt {
@@ -17,5 +15,3 @@ private:
 };
 
 } // rt
-
-#endif //SPHERE_H

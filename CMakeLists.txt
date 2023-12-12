@@ -22,9 +22,9 @@ add_executable(Editor Editor/src/main.cpp
         Editor/src/OpenGL/OpenGL.h
         Editor/src/OpenGL/Texture.cpp
         Editor/src/OpenGL/Texture.h
-        Editor/src/ImGui/Layer.h
-        Editor/src/ImGui/TestLayer.cpp
-        Editor/src/ImGui/TestLayer.h
+        "Editor/src/Layer/Layer.h"
+        "Editor/src/Layer/TestLayer.cpp"
+        "Editor/src/Layer/TestLayer.h"
 )
 
 target_link_libraries(Editor PRIVATE ImGui)
@@ -58,3 +58,8 @@ else()
     message(FATAL_ERROR "Unsupported operating system: ${CMAKE_SYSTEM_NAME}")
 endif()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "EDEBUG")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "ERELEASE")
+endif()

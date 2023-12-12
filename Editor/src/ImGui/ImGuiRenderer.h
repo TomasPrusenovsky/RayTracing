@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include "GLFW/glfw3.h"
-#include "../OpenGL/Texture.h"
 
 class ImGuiRenderer
 {
@@ -17,6 +16,4 @@ private:
 
 	const std::string m_GLSL_version = "#version 460";
 	GLFWwindow* m_GLFWwindow = nullptr;
-
-	OpenGL::Texture m_Texture;
 };

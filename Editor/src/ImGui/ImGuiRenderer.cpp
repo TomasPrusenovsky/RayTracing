@@ -1,7 +1,6 @@
 #include "ImGuiRenderer.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include <iostream>
 #include "Platform/Platforms.h"
 #include "../OpenGL/OpenGL.h"
 
@@ -30,7 +29,7 @@ void ImGuiRenderer::Init()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	ImGui::StyleColorsDark();
-	io.FontGlobalScale = Platform::GetImGuiDpiScale();
+	io.FontGlobalScale = Platform::GetDpiScale();
 
 	ImGui_ImplGlfw_InitForOpenGL(m_GLFWwindow, true);
 	ImGui_ImplOpenGL3_Init(m_GLSL_version.c_str());

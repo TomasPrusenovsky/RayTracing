@@ -8,11 +8,8 @@ namespace rt
 	{
 	public:
 		Camera(float FOV, point position, direction direction);
-		void SetImageSize(uint32_t widht, uint32_t height);
 		Ray GetRay(uint32_t x, uint32_t y) const;
 		void Recalculate(const Image& image);
-
-	private:
 
 	private:
 		struct ViewPlane

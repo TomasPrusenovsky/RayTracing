@@ -5,7 +5,7 @@
 
 namespace Platform
 {
-	float GetImGuiDpiScale()
+	float GetDpiScale()
 	{
 		HDC hdc = GetDC(NULL);
 		int dpi = GetDeviceCaps(hdc, LOGPIXELSX);
@@ -23,7 +23,7 @@ namespace Platform
 
 namespace Platform
 {
-	float GetImGuiDpiScale()
+	float GetDpiScale()
 	{
 		Display* display = XOpenDisplay(NULL);
 

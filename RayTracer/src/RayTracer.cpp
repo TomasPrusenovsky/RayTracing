@@ -6,15 +6,6 @@
 
 namespace rt
 {
-	void LogVec(const glm::vec3& v)
-	{
-		std::cout
-			<< v.x << ", "
-			<< v.y << ", "
-			<< v.z << std::endl;
-
-	}
-
 	glm::vec3 ray_color(const Ray& r)
 	{
 		glm::vec3 unit_direction = glm::normalize(r.Direction());
@@ -36,11 +27,9 @@ namespace rt
 			for (int x = 0; x < m_Image->Width(); ++x)
 			{
 				Ray ray = m_Camera.GetRay(x, y);
-				//LogVec(ray.Direction());
 				m_Image->SetPixel(x, y, color(ray_color(ray), 1.0f));
 			}
 		}
-		//std::cin.get();
 	}
 
 	void RayTracer::Resize(int width, int height)

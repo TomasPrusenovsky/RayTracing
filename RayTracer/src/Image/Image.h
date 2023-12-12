@@ -1,6 +1,4 @@
-#ifndef IMAGE_H
-#define IMAGE_H
-
+#pragma once
 #include <glm/glm.hpp>
 
 namespace rt {
@@ -12,8 +10,9 @@ public:
 
     using color = glm::vec4;
     void SetPixel(uint32_t x, uint32_t y, color color);
-    const int GetWidth() const { return m_Windth; }
-    const int GetHeight() const { return m_Height; }
+    const float AspectRatio() const { return (float)m_Windth / (float)m_Height; }
+    const int Width() const { return m_Windth; }
+    const int Height() const { return m_Height; }
     const float* GetData() const { return m_Data; }
 
 private:
@@ -25,5 +24,3 @@ private:
 };
 
 } // rt
-
-#endif //IMAGE_H

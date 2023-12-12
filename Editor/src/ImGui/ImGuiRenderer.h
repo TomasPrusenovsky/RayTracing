@@ -1,26 +1,22 @@
-
-#ifndef IMGUIRENDERER_H
-#define IMGUIRENDERER_H
-
+#pragma once
 #include <string>
 #include "GLFW/glfw3.h"
 #include "../OpenGL/Texture.h"
 
-class ImGuiRenderer {
+class ImGuiRenderer
+{
 public:
-    ImGuiRenderer(GLFWwindow* window);
-    ~ImGuiRenderer();
+	ImGuiRenderer(GLFWwindow* window);
+	~ImGuiRenderer();
 
-    void OnUpdate(); // Needs to be called before Render()
-    void Render();
+	void OnUpdate(); // Needs to be called before Render()
+	void Render();
 
 private:
-    void Init();
+	void Init();
 
-    const std::string m_GLSL_version = "#version 400";
-    GLFWwindow* m_GLFWwindow = nullptr;
+	const std::string m_GLSL_version = "#version 460";
+	GLFWwindow* m_GLFWwindow = nullptr;
 
-    OpenGL::Texture m_Texture;
+	OpenGL::Texture m_Texture;
 };
-
-#endif //IMGUIRENDERER_H

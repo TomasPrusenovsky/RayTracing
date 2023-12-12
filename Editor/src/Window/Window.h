@@ -1,47 +1,45 @@
-#ifndef RAYTRACING_WINDOW_H
-#define RAYTRACING_WINDOW_H
-
+#pragma once
 #include "../rtpch.h"
 #include "GLFW/glfw3.h"
 
-class Window {
+class Window
+{
 public:
-    Window(
-        const std::string&name,
-        int width = 1280,
-        int height = 720);
+	Window(
+		const std::string& name,
+		int width = 1280,
+		int height = 720);
 
-    ~Window();
+	~Window();
 
-    void SetVSync(bool enabled);
+	void SetVSync(bool enabled);
 
-    void OnUpdate() const;
+	void OnUpdate() const;
 
-    int GetWidth() const { return m_Data.Width; }
-    int GetHeight() const { return m_Data.Height; }
+	int GetWidth() const { return m_Data.Width; }
+	int GetHeight() const { return m_Data.Height; }
 
-    bool IsRunning() const { return m_Data.ShouldRun; }
+	bool IsRunning() const { return m_Data.ShouldRun; }
 
-    GLFWwindow* GetWinPtr() const { return m_Window; }
-
-private:
-    static void InitializeOpenGL();
-
-    void GLFWCallBacks();
+	GLFWwindow* GetWinPtr() const { return m_Window; }
 
 private:
-    GLFWwindow* m_Window = nullptr;
-    static bool s_GLFWisInitialized;
-    static bool s_OpenGLInitialized;
+	static void InitializeOpenGL();
 
-    struct WinData {
-        std::string Title;
-        int Width, Height;
-        bool VSync = true;
-        bool ShouldRun = true;
-    };
+	void GLFWCallBacks();
 
-    WinData m_Data;
+private:
+	GLFWwindow* m_Window = nullptr;
+	static bool s_GLFWisInitialized;
+	static bool s_OpenGLInitialized;
+
+	struct WinData
+	{
+		std::string Title;
+		int Width, Height;
+		bool VSync = true;
+		bool ShouldRun = true;
+	};
+
+	WinData m_Data;
 };
-
-#endif //RAYTRACING_WINDOW_H

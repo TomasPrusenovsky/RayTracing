@@ -1,10 +1,9 @@
-
 #ifndef PLATFORMS_H
 #define PLATFORMS_H
 
-namespace Platform {
-    float GetImGuiDpiScale();
+namespace Platform
+{
+	float GetImGuiDpiScale();
 }
-
 
 #endif //PLATFORMS_H

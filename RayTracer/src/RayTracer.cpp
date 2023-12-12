@@ -6,7 +6,6 @@
 
 #define MT 1
 
-
 namespace rt
 {
 	glm::vec3 ray_color(const Ray& r)
@@ -18,7 +17,7 @@ namespace rt
 
 	RayTracer::RayTracer(int width, int height) :
 		m_Image(std::make_unique<Image>(width, height)),
-		m_Camera(60.0f, glm::vec3{0.0f}, {0.0f, 0.0f, 1.0f})
+		m_Camera(60.0f, glm::vec3{ 0.0f }, { 0.0f, 0.0f, 1.0f })
 	{
 		m_Camera.Recalculate(*m_Image);
 	}
@@ -26,16 +25,16 @@ namespace rt
 	void RayTracer::Trace()
 	{
 #if MT
-		std::for_each(std::execution::par, m_Image->Begin(), m_Image->End(), 
-			[this](uint32_t y) 
-			{	
+		std::for_each(std::execution::par, m_Image->Begin(), m_Image->End(),
+			[this](uint32_t y)
+			{
 				for (int x = 0; x < m_Image->Width(); ++x)
 				{
 					Ray ray = m_Camera.GetRay(x, y);
 					m_Image->SetPixel(x, y, color(ray_color(ray), 1.0f));
 				}
 			});
-#else	
+#else
 		for (int y = 0; y < m_Image->Height(); ++y)
 		{
 			for (int x = 0; x < m_Image->Width(); ++x)

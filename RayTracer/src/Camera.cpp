@@ -11,7 +11,6 @@ namespace rt
 
 	Ray Camera::GetRay(uint32_t x, uint32_t y) const
 	{
-		ASSERT(true, "Test")
 		auto pixelCenter = m_ViewPlane.pixel_loc00 + ((float)x * m_ViewPlane.u_delta) + ((float)y * m_ViewPlane.v_delta);
 		auto direction = pixelCenter - m_Position;
 		return { m_Position, direction };

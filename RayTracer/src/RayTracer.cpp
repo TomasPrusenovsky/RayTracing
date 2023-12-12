@@ -2,6 +2,9 @@
 #include "Math/Random.h"
 
 #include <iostream>
+#include <execution>
+
+#define MT 1
 
 
 namespace rt
@@ -18,10 +21,22 @@ namespace rt
 		m_Camera(60.0f, glm::vec3{0.0f}, {0.0f, 0.0f, 1.0f})
 	{
 		m_Camera.Recalculate(*m_Image);
+		IterResize(m_Image->Height());
 	}
 
 	void RayTracer::Trace()
 	{
+#if MT
+		std::for_each(std::execution::par, m_VerticalIter.begin(), m_VerticalIter.end(), 
+			[this](uint32_t y) 
+			{	
+				for (int x = 0; x < m_Image->Width(); ++x)
+				{
+					Ray ray = m_Camera.GetRay(x, y);
+					m_Image->SetPixel(x, y, color(ray_color(ray), 1.0f));
+				}
+			});
+#else	
 		for (int y = 0; y < m_Image->Height(); ++y)
 		{
 			for (int x = 0; x < m_Image->Width(); ++x)
@@ -30,6 +45,7 @@ namespace rt
 				m_Image->SetPixel(x, y, color(ray_color(ray), 1.0f));
 			}
 		}
+#endif
 	}
 
 	void RayTracer::Resize(int width, int height)
@@ -38,6 +54,13 @@ namespace rt
 		if (width < 1 or height < 1) return;
 
 		m_Image = std::make_unique<Image>(width, height);
+		IterResize(m_Image->Height());
 		m_Camera.Recalculate(*m_Image);
+	}
+	void RayTracer::IterResize(uint32_t width)
+	{
+		m_VerticalIter.resize(width);
+		for (int i = 0; i < width; ++i)
+			m_VerticalIter[i] = i;
 	}
 } // rt

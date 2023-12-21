@@ -1,6 +1,7 @@
 #pragma once
 #include "Shape.h"
 #include <vector>
+#include <memory>
 
 namespace rt
 {
@@ -14,6 +15,7 @@ namespace rt
 		auto end() { return m_Test.end(); }
 
 	private:
-		std::vector<int> m_Test;
+		using ShapePtr = std::unique_ptr<Shape>;
+		std::vector<ShapePtr> m_Test;
 	};
 }

@@ -1,6 +1,6 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 #include "glad/glad.h"
+#include "Image/Image.h"
 
 namespace OpenGL
 {
@@ -11,6 +11,7 @@ namespace OpenGL
 
 		GLuint GetID() const { return m_ID; }
 
+		void Update(const rt::Image& image);
 		void Update(int width, int height, const float* data);
 
 	private:
@@ -21,4 +22,3 @@ namespace OpenGL
 	};
 } // OpenGL
 
-#endif //TEXTURE_H

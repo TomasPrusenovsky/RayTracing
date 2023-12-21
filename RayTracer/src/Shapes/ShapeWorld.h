@@ -1,5 +1,8 @@
 #pragma once
 #include "Shape.h"
+#include "Sphere.h"
+
+#include <memory>
 #include <vector>
 
 namespace rt
@@ -8,12 +11,13 @@ namespace rt
 	{
 	public:
 		ShapeWorld();
-		void Add(const Shape& shape);
+		void Add(const Sphere& shape);
 
-		auto begin() { return m_Test.begin(); }
-		auto end() { return m_Test.end(); }
+		auto begin() { return m_Shapes.begin(); }
+		auto end() { return m_Shapes.end(); }
 
 	private:
-		std::vector<int> m_Test;
+		using ShapePtr = std::unique_ptr<Shape>;
+		std::vector<ShapePtr> m_Shapes;
 	};
 }

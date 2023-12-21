@@ -7,6 +7,11 @@ namespace OpenGL
 		CreateTexture();
 	}
 
+	void Texture::Update(const rt::Image& image)
+	{
+		Update(image.Width(), image.Height(), image.GetData());
+	}
+
 	void Texture::Update(int width, int height, const float* data)
 	{
 		glBindTexture(GL_TEXTURE_2D, m_ID);

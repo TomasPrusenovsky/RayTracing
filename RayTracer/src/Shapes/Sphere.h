@@ -1,17 +1,17 @@
 #pragma once
 #include "Shape.h"
 
-namespace rt {
+namespace rt
+{
+	class Sphere : public Shape
+	{
+	public:
+		Sphere(float radius, point position, Material material);
+		~Sphere() = default;
+		const HitInfo Intersection(const Ray& ray) const override;
 
-class Sphere : public Shape {
-public:
-    Sphere(float radius, point position, Material material);
-    ~Sphere() override = default;
-    const HitInfo Intersection(const Ray& ray) const override;
-
-private:
-    float m_Radius;
-    point m_Position;
-};
-
+	private:
+		float m_Radius;
+		point m_Position;
+	};
 } // rt

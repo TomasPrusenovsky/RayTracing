@@ -8,7 +8,7 @@
 
 namespace rt
 {
-	glm::vec3 ray_color(const Ray& r)
+	glm::vec3 ray_color(const Ray& r) // TODO: to be removed
 	{
 		glm::vec3 unit_direction = glm::normalize(r.Direction());
 		auto a = 0.5f * (unit_direction.y + 1.0f);
@@ -20,6 +20,13 @@ namespace rt
 		m_Camera(60.0f, glm::vec3{ 0.0f }, { 0.0f, 0.0f, 1.0f })
 	{
 		m_Camera.Recalculate(*m_Image);
+
+		//For teting
+		Material mate{ color(1.0f, 0.0f, 0.0f, 1.0f) };
+		Sphere testSphere(0.5f, point(0, 0, -2.0f), mate);
+		m_ShapeWorld.Add(testSphere);
+
+		//////---------------
 	}
 
 	void RayTracer::Trace()
@@ -31,7 +38,17 @@ namespace rt
 				for (int x = 0; x < m_Image->Width(); ++x)
 				{
 					Ray ray = m_Camera.GetRay(x, y);
-					m_Image->SetPixel(x, y, color(ray_color(ray), 1.0f));
+					HitInfo hit;
+					color r_color;
+					for (auto&& shape : m_ShapeWorld)
+						hit = shape->Intersection(ray);
+
+					if (hit.didHit)
+						r_color = hit.material.albedo;
+					else
+						r_color = color(ray_color(ray), 1.0f);
+
+					m_Image->SetPixel(x, y, r_color);
 				}
 			});
 #else

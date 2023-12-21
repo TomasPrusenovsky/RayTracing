@@ -4,9 +4,10 @@ namespace rt
 {
 	ShapeWorld::ShapeWorld()
 	{
-		m_Test = { 1, 2, 3, 4, 5, 6 };
 	}
-	void ShapeWorld::Add(const Shape& shape)
+
+	void ShapeWorld::Add(const Sphere& shape)
 	{
+		m_Shapes.push_back(std::make_unique<Sphere>(shape));
 	}
 }

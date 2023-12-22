@@ -11,7 +11,7 @@ void TestLayer::OnUpdate()
 {
 	m_RayTracer.Trace();
 	const rt::Image& image = m_RayTracer.GetImage();
-	m_ImageTexture.Update(image.Width(), image.Height(), image.GetData());
+	m_ImageTexture.Update(image);
 }
 
 void TestLayer::OnImGuiUpdate()

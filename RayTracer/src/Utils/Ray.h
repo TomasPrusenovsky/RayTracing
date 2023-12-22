@@ -11,6 +11,7 @@ namespace rt {
         bool didHit = false;
         point hitPoint;
         Material material;
+        float distance;
     };
 
     class Ray {

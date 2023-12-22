@@ -2,8 +2,10 @@
 #include "Camera.h"
 #include "Image/Image.h"
 #include "Scene/Scene.h"
+#include "Enviroment/World.h"
+
 #include <memory>
-#include<vector>
+#include <vector>
 
 namespace rt
 {
@@ -12,12 +14,13 @@ namespace rt
 	public:
 		RayTracer(int width, int height);
 
-		void SetScene(const Scene& scene) { m_ActiveScene = &scene; }
+		void SetScene(const Scene& scene) { m_ActiveScene = &scene; } // For now does nothing
 		void Trace();
 		void Resize(int width, int height);
 		const Image& GetImage() const { return *m_Image; }
 
 	private:
+		World m_World;
 		Camera m_Camera;
 		std::unique_ptr<Image> m_Image;
 		const Scene* m_ActiveScene = nullptr;

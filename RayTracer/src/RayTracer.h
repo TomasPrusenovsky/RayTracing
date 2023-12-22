@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "Image/Image.h"
 #include "Scene/Scene.h"
-#include "Shapes/ShapeWorld.h"
+#include "Enviroment/World.h"
 
 #include <memory>
 #include <vector>
@@ -20,7 +20,7 @@ namespace rt
 		const Image& GetImage() const { return *m_Image; }
 
 	private:
-		ShapeWorld m_ShapeWorld;
+		World m_World;
 		Camera m_Camera;
 		std::unique_ptr<Image> m_Image;
 		const Scene* m_ActiveScene = nullptr;

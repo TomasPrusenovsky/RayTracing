@@ -21,6 +21,8 @@ namespace rt
 			return { false };
 
 		const point hit_point = ray[(-half_b - glm::sqrt(discriminant)) / a];
-		return { true, hit_point, m_Material };
+		const float distance = glm::distance(hit_point, ray.Origin());
+
+		return { true, hit_point, m_Material, distance };
 	}
 } // rt

@@ -22,9 +22,13 @@ namespace rt
 		m_Camera.Recalculate(*m_Image);
 
 		//For teting
-		Material mate{ color(1.0f, 0.0f, 0.0f, 1.0f) };
-		Sphere testSphere(0.5f, point(0, 0, -2.0f), mate);
-		m_ShapeWorld.Add(testSphere);
+		Material red{ color(1.0f, 0.0f, 0.0f, 1.0f) };
+		Material blue{ color(0.0f, 0.0f, 1.0f, 1.0f) };
+
+		Sphere redSphere(0.5f, point(0, 0, -1.0f), red);
+		Sphere blueSphere(0.6f, point(1.0f, 0.0f, -1.0f), blue);
+		m_World.Add(blueSphere);
+		m_World.Add(redSphere);
 
 		//////---------------
 	}
@@ -38,15 +42,14 @@ namespace rt
 				for (int x = 0; x < m_Image->Width(); ++x)
 				{
 					Ray ray = m_Camera.GetRay(x, y);
-					HitInfo hit;
 					color r_color;
-					for (auto&& shape : m_ShapeWorld)
-						hit = shape->Intersection(ray);
+					HitInfo hit{ m_World.Intesection(ray)};
+					
 
 					if (hit.didHit)
 						r_color = hit.material.albedo;
 					else
-						r_color = color(ray_color(ray), 1.0f);
+						r_color = m_World.Background();
 
 					m_Image->SetPixel(x, y, r_color);
 				}

@@ -2,8 +2,8 @@
 
 namespace rt
 {
-    color World::Background()
-    {
-        return color(1.0f);
-    }
+	color World::Background()
+	{
+		return color(1.0f);
+	}
 }

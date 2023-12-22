@@ -22,8 +22,8 @@ namespace rt
 		m_Camera.Recalculate(*m_Image);
 
 		//For teting
-		Material red{ color(1.0f, 0.0f, 0.0f, 1.0f) };
-		Material blue{ color(0.0f, 0.0f, 1.0f, 1.0f) };
+		Material red{ Color::Red };
+		Material blue{ Color::Blue };
 
 		Sphere redSphere(0.5f, point(0, 0, -1.0f), red);
 		Sphere blueSphere(0.6f, point(1.0f, 0.0f, -1.0f), blue);
@@ -43,8 +43,7 @@ namespace rt
 				{
 					Ray ray = m_Camera.GetRay(x, y);
 					color r_color;
-					HitInfo hit{ m_World.Intesection(ray)};
-					
+					HitInfo hit{ m_World.Intesection(ray) };
 
 					if (hit.didHit)
 						r_color = hit.material.albedo;

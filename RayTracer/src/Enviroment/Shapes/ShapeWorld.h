@@ -14,7 +14,6 @@ namespace rt
 		void Add(const Sphere& shape);
 		HitInfo Intesection(const Ray& ray);
 
-
 	private:
 		auto begin() { return m_Shapes.begin(); }
 		auto end() { return m_Shapes.end(); }

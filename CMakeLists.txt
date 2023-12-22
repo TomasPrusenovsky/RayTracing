@@ -27,6 +27,9 @@ target_include_directories(Editor PRIVATE Editor/vendor/glad/include)
 target_include_directories(Editor PRIVATE ${GLFW_INCLUDE_DIRS})
 target_include_directories(Editor PRIVATE RayTracer/src)
 
+target_include_directories(RayTracer PRIVATE Editor/vendor/ImGui)
+
+
 target_precompile_headers(Editor PRIVATE ${PRECOMPILED_HEADER})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLFW_INCLUDE_NONE")

@@ -16,6 +16,9 @@ void TestLayer::OnUpdate()
 
 void TestLayer::OnImGuiUpdate()
 {
+
+	for (auto&& shape : m_RayTracer.Shapes())
+		shape->Export();
 	const rt::Image& image = m_RayTracer.GetImage();
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));

@@ -18,6 +18,7 @@ namespace rt
 		void Trace();
 		void Resize(int width, int height);
 		const Image& GetImage() const { return *m_Image; }
+		const World::ShapeList& Shapes() const { return m_World.Shapes(); }
 
 	private:
 		World m_World;

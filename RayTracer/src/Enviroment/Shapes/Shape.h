@@ -9,7 +9,10 @@ namespace rt
 	{
 	public:
 		virtual const HitInfo Intersection(const Ray& ray) const = 0;
-		void Export();
+		virtual void Export() = 0;
+
+		// must be called between ImGui::Begin() and ImGui::End();
+		void MaterialExport();
 
 	protected:
 		Material m_Material = {};

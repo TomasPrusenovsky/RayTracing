@@ -3,9 +3,13 @@
 
 namespace rt
 {
+	unsigned int Sphere::s_Instance = 0;
+
 	Sphere::Sphere(float radius, point position, Material material) :
 		m_Radius(radius), m_Position(position)
 	{
+		m_Name += std::to_string(s_Instance);
+		++s_Instance;
 		m_Material = material;
 	}
 
@@ -24,5 +28,12 @@ namespace rt
 		const float distance = glm::distance(hit_point, ray.Origin());
 
 		return { true, hit_point, m_Material, distance };
+	}
+	void Sphere::Export()
+	{
+		ImGui::Begin(m_Name.c_str());
+		ImGui::DragFloat("Radius", &m_Radius, 0.01f);
+		MaterialExport();
+		ImGui::End();
 	}
 } // rt

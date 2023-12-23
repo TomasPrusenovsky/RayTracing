@@ -2,10 +2,8 @@
 
 namespace rt
 {
-	void Shape::Export()
+	void Shape::MaterialExport()
 	{
-		ImGui::Begin("TestWindow");
 		ImGui::ColorEdit3("Albedo", &m_Material.albedo.r);
-		ImGui::End();
 	}
 }

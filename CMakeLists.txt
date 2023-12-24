@@ -23,6 +23,8 @@ target_link_libraries(Editor PRIVATE RayTracer)
 
 target_include_directories(Editor PRIVATE Editor/vendor/ImGui)
 target_include_directories(Editor PRIVATE Editor/vendor/ImGui/backends)
+target_include_directories(Editor PRIVATE Editor/vendor/ImGui/misc/cpp)
+
 target_include_directories(Editor PRIVATE Editor/vendor/glad/include)
 target_include_directories(Editor PRIVATE ${GLFW_INCLUDE_DIRS})
 target_include_directories(Editor PRIVATE RayTracer/src)

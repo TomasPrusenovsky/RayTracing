@@ -16,7 +16,7 @@ add_library(RayTracer)
 target_sources(RayTracer PRIVATE ${SOURCES})
 
 target_link_libraries(RayTracer PRIVATE glm)
-target_link_libraries(RayTracer PRIVATE stb_image)
+target_link_libraries(RayTracer PUBLIC stb_image)
 
 target_include_directories(RayTracer PRIVATE ${GLM_DIRS})
 target_include_directories(RayTracer PRIVATE ${SRC_DIR})

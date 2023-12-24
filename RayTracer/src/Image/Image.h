@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <memory>
+#include "Utils/Material.h"
 
 namespace rt
 {
@@ -11,8 +12,7 @@ namespace rt
 		Image(int width, int heigh);
 		~Image();
 
-		using color = glm::vec4;
-		void SetPixel(uint32_t x, uint32_t y, color color);
+		void SetPixel(uint32_t x, uint32_t y, const color& color);
 		const float AspectRatio() const { return (float)m_Windth / (float)m_Height; }
 		const int Width() const { return m_Windth; }
 		const int Height() const { return m_Height; }
@@ -23,8 +23,8 @@ namespace rt
 		auto End() { return m_VerticalIter.end(); }
 		// ............................................
 
-	private:
-		// TODO: maybe sepate class...................
+	protected:
+		// TODO: maybe separate class...................
 		using Iterator = std::vector<uint32_t>;
 		Iterator m_VerticalIter;
 		void IterResize(uint32_t newSize);

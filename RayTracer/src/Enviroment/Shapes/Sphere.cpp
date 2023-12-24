@@ -24,15 +24,21 @@ namespace rt
 		if (discriminant < 0.0f)
 			return { false };
 
-		const point hit_point = ray[(-half_b - glm::sqrt(discriminant)) / a];
-		const float distance = glm::distance(hit_point, ray.Origin());
+		float distance = (-half_b - glm::sqrt(discriminant)) / a;
+		if (distance < 0.0f)
+			return { false };
 
-		return { true, hit_point, m_Material, distance };
+		point hit_point = ray[distance];
+		const point normal = glm::normalize(hit_point - m_Position);
+		hit_point += normal * 0.00001f; // move it slightly so the reflected ray doesnt interact with itself
+
+		return { true, hit_point, m_Material, normal, distance };
 	}
 	void Sphere::Export()
 	{
 		ImGui::Begin(m_Name.c_str());
-		ImGui::DragFloat("Radius", &m_Radius, 0.01f);
+		ImGui::DragFloat("Radius", &m_Radius, 0.01f, 0.0f, 10.0f);
+		ImGui::DragFloat3("Position", &m_Position.x, 0.01f);
 		MaterialExport();
 		ImGui::End();
 	}

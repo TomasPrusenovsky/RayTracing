@@ -11,6 +11,7 @@ namespace rt {
         bool didHit = false;
         point hitPoint;
         Material material;
+        direction normal;
         float distance;
     };
 
@@ -21,6 +22,10 @@ namespace rt {
         point operator[](float at) const;
         const point Origin() const { return m_Origin; }
         const direction Direction() const { return  m_Direction; }
+
+        void Origin(point newOrigin) { m_Origin = newOrigin; }
+        void Direction(direction newDirection) { m_Direction = newDirection; }
+
     private:
         point m_Origin;
         direction m_Direction;

@@ -29,6 +29,8 @@ target_include_directories(Editor PRIVATE RayTracer/src)
 
 target_include_directories(RayTracer PRIVATE Editor/vendor/ImGui)
 
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_BINARY_DIR}/bin)
+
 
 target_precompile_headers(Editor PRIVATE ${PRECOMPILED_HEADER})
 

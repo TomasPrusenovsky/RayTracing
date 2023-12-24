@@ -15,7 +15,7 @@ namespace rt
 	{
 	}
 
-	void Image::SetPixel(uint32_t x, uint32_t y, color color)
+	void Image::SetPixel(uint32_t x, uint32_t y, const color& color)
 	{
 		uint32_t index = (y * m_Windth + x) * m_Chanels;
 		m_Data[index + 0] = color.r;
@@ -23,6 +23,8 @@ namespace rt
 		m_Data[index + 2] = color.b;
 		m_Data[index + 3] = color.a;
 	}
+
+
 	void Image::IterResize(uint32_t newSize)
 	{
 		m_VerticalIter.resize(newSize);

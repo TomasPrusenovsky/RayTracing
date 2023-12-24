@@ -8,7 +8,7 @@ namespace rt
 	{
 	public:
 		Camera(float FOV, point position, direction direction);
-		Ray GetRay(uint32_t x, uint32_t y) const;
+		Ray GetRay(uint32_t x, uint32_t y, bool antialiasing) const;
 		void Recalculate(const Image& image);
 
 	private:

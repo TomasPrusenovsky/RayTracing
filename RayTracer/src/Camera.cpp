@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Debug/Debug.h"
+#include "Math/Random.h"
 
 namespace rt
 {
@@ -9,9 +10,12 @@ namespace rt
 	{	
 	}
 
-	Ray Camera::GetRay(uint32_t x, uint32_t y) const
+	Ray Camera::GetRay(uint32_t x, uint32_t y, bool antialiasing) const
 	{
-		auto pixelCenter = m_ViewPlane.pixel_loc00 + ((float)x * m_ViewPlane.u_delta) + ((float)y * m_ViewPlane.v_delta);
+		const glm::vec2 offset = antialiasing ? Random::Vec2(-0.5f, 0.5f) : glm::vec2(0.0f);
+		const glm::vec2 aaPos = glm::vec2((float)x + offset.x, (float)y + offset.y);
+
+		auto pixelCenter = m_ViewPlane.pixel_loc00 + (aaPos.x * m_ViewPlane.u_delta) + (aaPos.y * m_ViewPlane.v_delta);
 		auto direction = pixelCenter - m_Position;
 		return { m_Position, direction };
 	}

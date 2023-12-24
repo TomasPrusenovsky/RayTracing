@@ -31,6 +31,7 @@ namespace rt
 			uint16_t maxBounces = 20;
 			bool accumulate = true;
 			bool gammaCorection = true;
+			bool antialiasing = true;
 		};
 		Settings m_Settings;
 

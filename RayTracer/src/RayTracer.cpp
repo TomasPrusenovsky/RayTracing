@@ -37,7 +37,10 @@ namespace rt
 			{
 				for (int x = 0; x < m_Image->Width(); ++x)
 				{
-					Ray ray = m_Camera.GetRay(x, y);
+					float offset_x = Random::Float2(-0.9f, 0.9f);
+					float offset_y = Random::Float2(-0.9f, 0.9f);
+
+					Ray ray = m_Camera.GetRay(x, y, m_Settings.antialiasing);
 					
 
 					m_AccumulationImage->Accumulate(x, y, Trace(ray));
@@ -75,6 +78,7 @@ namespace rt
 		ImGui::Begin("Settings");
 		ImGui::Checkbox("Accumulate", &m_Settings.accumulate);
 		ImGui::Checkbox("Gamma Corection", &m_Settings.gammaCorection);
+		ImGui::Checkbox("AntiAliasing", &m_Settings.antialiasing);
 		ImGui::End();
 	}
 

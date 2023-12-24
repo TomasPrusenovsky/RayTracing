@@ -34,6 +34,11 @@ namespace rt {
             return (max - min) * Float() + min;
         }
 
+        static glm::vec2 Vec2(float min, float max)
+        {
+            return { Float2(min, max), Float2(min, max) };
+        }
+
         static glm::vec3 Vec3()
         {
             return {Float(), Float(), Float()};

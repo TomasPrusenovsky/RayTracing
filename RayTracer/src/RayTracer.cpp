@@ -17,12 +17,21 @@ namespace rt
 
 		//For teting
 		Material red{ Color::Red };
-		Material blue{ Color::Blue };
+		Material cyan{ Color::Cyan };
+		Material yellow{ Color::Yellow };
+		Material magenta{ Color::Magenta };
+
 
 		Sphere redSphere(0.5f, point(0, 0, -1.0f), red);
-		Sphere blueSphere(0.6f, point(1.0f, 0.0f, -1.0f), blue);
+		Sphere blueSphere(0.6f, point(1.0f, 0.0f, -1.0f), cyan);
+		Sphere cSphere(0.6f, point(1.0f, 0.0f, -1.0f), yellow);
+		Sphere mSphere(0.6f, point(1.0f, 0.0f, -1.0f), magenta);
+
 		m_World.Add(blueSphere);
 		m_World.Add(redSphere);
+		m_World.Add(cSphere);
+		m_World.Add(mSphere);
+
 
 		//////---------------
 	}

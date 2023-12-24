@@ -16,7 +16,6 @@ void TestLayer::OnUpdate()
 
 void TestLayer::OnImGuiUpdate()
 {
-
 	for (auto&& shape : m_RayTracer.Shapes())
 		shape->Export();
 	m_RayTracer.Export();

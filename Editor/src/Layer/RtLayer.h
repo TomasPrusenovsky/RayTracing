@@ -16,7 +16,6 @@ public:
 
 private:
 	OpenGL::Texture m_ImageTexture;
-	rt::RayTracer m_RayTracer;
 
 private:
 	void RtExport();

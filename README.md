@@ -1,8 +1,9 @@
 # RayTracing
-
+Simple Ray Tracing Engine with ImGui and GLFW.
 
 
 ## Getting started
+You need to have [CMake](https://cmake.org/).
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 

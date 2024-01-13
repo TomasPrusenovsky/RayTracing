@@ -5,6 +5,14 @@ Simple Ray Tracing Engine with ImGui and GLFW.
 ## Getting started
 You need to have [CMake](https://cmake.org/).
 
+```
+git clone --recursive https://gitlab.mff.cuni.cz/prusenot1/RayTracing.git
+cd RayTracing
+mkdir build
+cd build
+cmake ..
+```
+
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
 Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!

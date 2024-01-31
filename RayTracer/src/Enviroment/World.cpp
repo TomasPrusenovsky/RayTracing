@@ -1,4 +1,5 @@
 #include "World.h"
+#include <iostream>
 
 namespace rt
 {
@@ -6,8 +7,11 @@ namespace rt
 	{
 	}
 
-	color World::Background()
+	color World::Background(const Ray& ray)
 	{
+		if (m_Settings.showSkybox)
+			return SkyboxColor(ray);
+
 		return Color::Black;
 	}
 
@@ -20,6 +24,7 @@ namespace rt
 		stbi_set_flip_vertically_on_load(true);
 		m_Skybox.image = stbi_loadf(m_Skybox.file.c_str(), &m_Skybox.x, &m_Skybox.y, &m_Skybox.chanels, 0);
 	}
+
 	color World::SkyboxColor(const Ray& ray)
 	{
 		glm::vec3 dir = glm::normalize(ray.Direction());

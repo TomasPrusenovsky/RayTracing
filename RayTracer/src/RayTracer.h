@@ -19,13 +19,10 @@ namespace rt
 		void SetScene(const Scene& scene) { m_ActiveScene = &scene; } // For now does nothing
 		void Trace();
 		void Resize(int width, int height);
-		void Export();
 		const Image& GetImage() const { return *m_Image; }
 		const World::ShapeList& Shapes() const { return m_World.Shapes(); }
 		World& RtWorld() { return m_World; }
 
-	private:
-		using ImagePtr = std::unique_ptr<Image>;
 		struct Settings
 		{
 			uint16_t maxBounces = 20;
@@ -33,6 +30,11 @@ namespace rt
 			bool gammaCorection = true;
 			bool antialiasing = true;
 		};
+		Settings& RtSettings() { return m_Settings; }
+
+	private:
+		using ImagePtr = std::unique_ptr<Image>;
+
 		Settings m_Settings;
 
 		uint32_t m_FrameIndex = 1;

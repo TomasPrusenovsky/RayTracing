@@ -18,5 +18,5 @@ private:
 
 	Window m_Window;
 	ImGuiRenderer m_ImGui;
-	Layers m_ImGuiLayers;
+	Layers m_Layers;
 };

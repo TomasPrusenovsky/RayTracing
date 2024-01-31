@@ -1,14 +1,13 @@
 #pragma once
-#include "Layer.h"
+#include "Layer/Layer.h"
 #include "RayTracer.h"
 
-// for test TODO: move this else
-#include "../OpenGL/Texture.h"
+#include "OpenGL/Texture.h"
 
 class RtLayer : public Layer
 {
 public:
-	RtLayer();
+	RtLayer() = default;
 
 	~RtLayer() override = default;
 	void OnUpdate() override;

@@ -3,7 +3,7 @@ Simple Ray Tracing Engine with ImGui and GLFW.
 
 
 ## Getting started
-You need to have [CMake](https://cmake.org/).
+You need to have [CMake](https://cmake.org/) installed.
 
 ```
 git clone --recursive https://gitlab.mff.cuni.cz/prusenot1/RayTracing.git

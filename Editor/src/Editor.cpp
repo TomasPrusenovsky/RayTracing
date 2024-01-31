@@ -1,15 +1,17 @@
 #include "Editor.h"
 
-#include "Layer/RtLayer.h"
-#include "Layer/SkyboxLayer.h"
-#include "Layer/MenuLayer.h"
+#include "Layers/RtLayer.h"
+#include "Layers/SkyboxLayer.h"
+#include "Layers/MenuLayer.h"
+#include "Layers/TestLayer.h"
 
 Editor::Editor() : m_Window(Window("Ray Tracer")),
 m_ImGui(m_Window.GetWinPtr())
 {
-	m_ImGuiLayers.push_back(std::make_unique<RtLayer>());
-	m_ImGuiLayers.push_back(std::make_unique<SkyboxLayer>());
-	m_ImGuiLayers.push_back(std::make_unique<MenuLayer>());
+	m_Layers.push_back(std::make_unique<RtLayer>());
+	m_Layers.push_back(std::make_unique<SkyboxLayer>());
+	m_Layers.push_back(std::make_unique<MenuLayer>());
+	m_Layers.push_back(std::make_unique<TestLayer>());
 }
 
 void Editor::Run()
@@ -18,7 +20,7 @@ void Editor::Run()
 	{
 		m_ImGui.OnUpdate();
 
-		for (auto&& layer : m_ImGuiLayers)
+		for (auto&& layer : m_Layers)
 		{
 			layer->OnUpdate();
 			layer->OnImGuiUpdate();

@@ -16,21 +16,7 @@ namespace rt
 		m_Camera.Recalculate(*m_Image);
 
 		//For teting
-		Material red{ Color::Red };
-		Material cyan{ Color::Cyan };
-		Material yellow{ Color::Yellow };
-		Material magenta{ Color::Magenta };
 
-
-		Sphere redSphere(0.5f, point(0, 0, -1.0f), red);
-		Sphere blueSphere(0.6f, point(1.0f, 0.0f, -1.0f), cyan);
-		Sphere cSphere(0.6f, point(1.0f, 0.0f, -1.0f), yellow);
-		Sphere mSphere(0.6f, point(1.0f, 0.0f, -1.0f), magenta);
-
-		m_World.Add(blueSphere);
-		m_World.Add(redSphere);
-		m_World.Add(cSphere);
-		m_World.Add(mSphere);
 
 
 		//////---------------
@@ -82,15 +68,6 @@ namespace rt
 		m_Camera.Recalculate(*m_Image);
 	}
 
-	void RayTracer::Export()
-	{
-		ImGui::Begin("Settings");
-		ImGui::Checkbox("Accumulate", &m_Settings.accumulate);
-		ImGui::Checkbox("Gamma Corection", &m_Settings.gammaCorection);
-		ImGui::Checkbox("AntiAliasing", &m_Settings.antialiasing);
-		ImGui::End();
-	}
-
 	color RayTracer::Trace(Ray& ray)
 	{
 		color incomingLight = Color::Black;
@@ -118,7 +95,7 @@ namespace rt
 			}
 			else
 			{
-				incomingLight += m_World.SkyboxColor(ray) * rayColor;
+				incomingLight += m_World.Background(ray) * rayColor;
 				break;
 			}
 		}

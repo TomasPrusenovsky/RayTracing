@@ -14,7 +14,7 @@ namespace rt
 		using ShapeList = std::vector<ShapePtr>;
 
 		ShapeWorld();
-		void Add(const Sphere& shape);
+		void Add(const Sphere& shape); // TODO: change this to move the shapes
 		HitInfo Intesection(const Ray& ray);
 		const ShapeList& Shapes() const { return m_Shapes; }
 

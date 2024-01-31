@@ -1,10 +1,5 @@
 #include "RtLayer.h"
 
-RtLayer::RtLayer()
-{
-	s_RayTracer.RtWorld().LoadSkybox("assets/skyboxes/container_free_Ref.hdr");
-}
-
 void RtLayer::OnUpdate()
 {
 	s_RayTracer.Trace();
@@ -29,5 +24,14 @@ void RtLayer::RtExport()
 {
 	for (auto&& shape : s_RayTracer.Shapes())
 		shape->Export();
-	s_RayTracer.Export();
+	
+	auto& rtSettings = s_RayTracer.RtSettings();
+	ImGui::Begin("Settings");
+	ImGui::Checkbox("Accumulate", &rtSettings.accumulate);
+	ImGui::Checkbox("Gamma Corection", &rtSettings.gammaCorection);
+	ImGui::Checkbox("AntiAliasing", &rtSettings.antialiasing);
+
+	if (s_RayTracer.RtWorld().HasSkybox())
+		ImGui::Checkbox("Background", &s_RayTracer.RtWorld().GetSettings().showSkybox);
+	ImGui::End();
 }

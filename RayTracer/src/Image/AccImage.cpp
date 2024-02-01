@@ -14,6 +14,7 @@ namespace rt
 
 		return color;
 	}
+
 	void AccImage::Accumulate(uint32_t x, uint32_t y, color color)
 	{
 		uint32_t index = (y * m_Windth + x) * m_Chanels;

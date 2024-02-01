@@ -8,6 +8,7 @@
 #include <imgui.h>
 #include <memory>
 #include <vector>
+#include <functional>
 
 namespace rt
 {
@@ -18,6 +19,7 @@ namespace rt
 
 		void SetScene(const Scene& scene) { m_ActiveScene = &scene; } // For now does nothing
 		void Trace();
+		void Raster();
 		void Resize(int width, int height);
 		const Image& GetImage() const { return *m_Image; }
 		const World::ShapeList& Shapes() const { return m_World.Shapes(); }
@@ -26,7 +28,7 @@ namespace rt
 		struct Settings
 		{
 			uint16_t maxBounces = 20;
-			bool accumulate = true;
+			bool accumulate = false;
 			bool gammaCorection = true;
 			bool antialiasing = true;
 		};
@@ -47,5 +49,9 @@ namespace rt
 
 	private:
 		color Trace(Ray& ray);
+		color Raster(const Ray& ray); 
+		void NewImage(int width, int height);
+		void PerPixel(std::function<void(uint32_t, uint32_t)> func);
+
 	};
 } // rt

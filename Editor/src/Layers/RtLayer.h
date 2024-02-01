@@ -15,6 +15,7 @@ public:
 
 private:
 	OpenGL::Texture m_ImageTexture;
+	bool m_Raster = false;
 
 private:
 	void RtExport();

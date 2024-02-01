@@ -2,7 +2,11 @@
 
 void RtLayer::OnUpdate()
 {
-	s_RayTracer.Trace();
+	if (m_Raster)
+		s_RayTracer.Raster();
+	else
+		s_RayTracer.Trace();
+
 	auto& image = s_RayTracer.GetImage();
 	m_ImageTexture.Update(image);
 }
@@ -27,6 +31,7 @@ void RtLayer::RtExport()
 	
 	auto& rtSettings = s_RayTracer.RtSettings();
 	ImGui::Begin("Settings");
+	ImGui::Checkbox("Preview", &m_Raster);
 	ImGui::Checkbox("Accumulate", &rtSettings.accumulate);
 	ImGui::Checkbox("Gamma Corection", &rtSettings.gammaCorection);
 	ImGui::Checkbox("AntiAliasing", &rtSettings.antialiasing);

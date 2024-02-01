@@ -14,12 +14,6 @@ namespace rt
 		m_Camera(60.0f, glm::vec3{ 0.0f }, { 0.0f, 0.0f, 1.0f })
 	{
 		m_Camera.Recalculate(*m_Image);
-
-		//For teting
-
-
-
-		//////---------------
 	}
 
 	void RayTracer::Trace()
@@ -27,28 +21,20 @@ namespace rt
 		if (m_FrameIndex == 1)
 			m_AccumulationImage = std::make_unique<AccImage>(m_Image->Width(), m_Image->Height());
 
-		std::for_each(std::execution::par, m_Image->Begin(), m_Image->End(),
-			[this](uint32_t y)
-			{
-				for (int x = 0; x < m_Image->Width(); ++x)
-				{
-					float offset_x = Random::Float2(-0.9f, 0.9f);
-					float offset_y = Random::Float2(-0.9f, 0.9f);
+		PerPixel([this](uint32_t x, uint32_t y)
+		{
+				Ray ray = m_Camera.GetRay(x, y, m_Settings.antialiasing);
 
-					Ray ray = m_Camera.GetRay(x, y, m_Settings.antialiasing);
-					
+				m_AccumulationImage->Accumulate(x, y, Trace(ray));
+				color accumulationColor = m_AccumulationImage->PixelColor(x, y);
+				accumulationColor /= (float)m_FrameIndex;
+				accumulationColor.a = 1.0f;
 
-					m_AccumulationImage->Accumulate(x, y, Trace(ray));
-					color accumulationColor = m_AccumulationImage->PixelColor(x, y);
-					accumulationColor /= (float)m_FrameIndex;
-					accumulationColor.a = 1.0f;
-
-					if (m_Settings.gammaCorection)
-						m_Image->SetPixel(x, y, Math::GammaCorection2(accumulationColor));
-					else
-						m_Image->SetPixel(x, y, accumulationColor);
-				}
-			});
+				if (m_Settings.gammaCorection)
+					m_Image->SetPixel(x, y, Math::GammaCorection2(accumulationColor));
+				else
+					m_Image->SetPixel(x, y, accumulationColor);
+		});
 
 		if (m_Settings.accumulate)
 			m_FrameIndex++;
@@ -56,16 +42,32 @@ namespace rt
 			m_FrameIndex = 1;
 	}
 
+	void RayTracer::Raster()
+	{
+		std::for_each(std::execution::par, m_Image->Begin(), m_Image->End(),
+			[this](uint32_t y)
+			{
+				for (int x = 0; x < m_Image->Width(); ++x)
+				{
+					Ray ray = m_Camera.GetRay(x, y, m_Settings.antialiasing);
+
+
+					color col = Raster(ray);
+
+					if (m_Settings.gammaCorection)
+						m_Image->SetPixel(x, y, Math::GammaCorection2(col));
+					else
+						m_Image->SetPixel(x, y, col);
+				}
+			});
+	}
+
 	void RayTracer::Resize(int width, int height)
 	{
 		if (m_Image->Width() == width and m_Image->Height() == height) return;
 		if (width < 1 or height < 1) return;
 
-		m_FrameIndex = 1;
-
-		m_Image = std::make_unique<Image>(width, height);
-		m_AccumulationImage = std::make_unique<AccImage>(width, height);
-		m_Camera.Recalculate(*m_Image);
+		NewImage(width, height);
 	}
 
 	color RayTracer::Trace(Ray& ray)
@@ -101,5 +103,35 @@ namespace rt
 		}
 		incomingLight.a = 1.0f; // Set the alpha to 1.0f
 		return glm::clamp(incomingLight, glm::vec4(0.0f), glm::vec4(1.0f));
+	}
+
+	color RayTracer::Raster(const Ray& ray)
+	{
+		HitInfo hitInfo = m_World.Intesection(ray);
+		if (hitInfo.didHit)
+			return hitInfo.material.albedo;
+
+		return m_World.Background(ray);
+	}
+
+	void RayTracer::NewImage(int width, int height)
+	{
+		m_FrameIndex = 1;
+
+		m_Image = std::make_unique<Image>(width, height);
+		m_AccumulationImage = std::make_unique<AccImage>(width, height);
+		m_Camera.Recalculate(*m_Image);
+	}
+
+	void RayTracer::PerPixel(std::function<void(uint32_t, uint32_t)> func)
+	{
+		std::for_each(std::execution::par, m_Image->Begin(), m_Image->End(),
+			[&func, this](uint32_t y)
+			{
+				for (int x = 0; x < m_Image->Width(); ++x)
+				{
+					func(x, y);
+				}
+			});
 	}
 } // rt

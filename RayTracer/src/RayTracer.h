@@ -4,6 +4,7 @@
 #include "Image/AccImage.h"
 #include "Scene/Scene.h"
 #include "Enviroment/World.h"
+#include "Utils/Timer.h"
 
 #include <imgui.h>
 #include <memory>
@@ -34,12 +35,21 @@ namespace rt
 		};
 		Settings& RtSettings() { return m_Settings; }
 
+		struct Render
+		{
+			double timeDiff = 0.0;
+			double FPS = 0.0;
+		};
+		const Render& RenderTime() { return m_RenderTime; }
+
 	private:
 		using ImagePtr = std::unique_ptr<Image>;
 
 		Settings m_Settings;
+		Render m_RenderTime;
 
 		uint32_t m_FrameIndex = 1;
+		bool m_ImageReset = false;
 
 		World m_World;
 		Camera m_Camera;

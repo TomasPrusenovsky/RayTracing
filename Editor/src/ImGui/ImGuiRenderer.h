@@ -10,6 +10,7 @@ public:
 
 	void OnUpdate(); // Needs to be called before Render()
 	void Render();
+	void EnableDarkMode();
 
 private:
 	void Init();

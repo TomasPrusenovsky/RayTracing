@@ -1,6 +1,7 @@
 #pragma once
 #include "Shape.h"
 #include "Sphere.h"
+#include "Plane.h"
 
 #include <memory>
 #include <vector>
@@ -15,6 +16,8 @@ namespace rt
 
 		ShapeWorld();
 		void Add(const Sphere& shape); // TODO: change this to move the shapes
+		void Add(const Plane& plane);
+
 		HitInfo Intesection(const Ray& ray);
 		const ShapeList& Shapes() const { return m_Shapes; }
 

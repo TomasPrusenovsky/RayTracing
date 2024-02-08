@@ -6,19 +6,43 @@ void MenuLayer::OnUpdate()
 {
 }
 
+void MenuLayer::MenuBar()
+{
+	ImGui::BeginMainMenuBar();
+
+	if (ImGui::BeginMenu("Image"))
+	{
+		if (ImGui::MenuItem("Save"))
+		{
+			m_ShowSavePopup = true;
+		}
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("Stats"))
+	{
+		if (ImGui::MenuItem("Render stats"))
+		{
+			m_ShowStats = true;
+		}
+		ImGui::EndMenu();
+	}
+
+	ImGui::EndMainMenuBar();
+}
+
+
 void MenuLayer::OnImGuiUpdate()
 {
-	if (ImGui::BeginMainMenuBar())
+	MenuBar();
+
+	if (m_ShowStats)
 	{
-		if (ImGui::BeginMenu("Image"))
-		{
-			if (ImGui::MenuItem("Save"))
-			{
-				m_ShowSavePopup = true;
-			}
-			ImGui::EndMenu();
-		}
-		ImGui::EndMainMenuBar();
+		ImGui::Begin("Render stats", &m_ShowStats);
+		ImGui::Text("%.3fms", s_RayTracer.RenderTime().timeDiff);
+		ImGui::Text("%.3fFPS", s_RayTracer.RenderTime().FPS);
+		ImGui::End();
+
 	}
 
 	if (m_ShowSavePopup)
@@ -80,4 +104,5 @@ void MenuLayer::SavePng()
 	
 	stbi_write_png((m_Filename + ".png").c_str(), image.Width(), image.Height(), image.Chanels(), RGBAimage.get(), image.Width() * image.Chanels());
 }
+
 

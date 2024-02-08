@@ -8,6 +8,8 @@
 Editor::Editor() : m_Window(Window("Ray Tracer")),
 m_ImGui(m_Window.GetWinPtr())
 {
+	m_ImGui.EnableDarkMode();
+
 	m_Layers.push_back(std::make_unique<RtLayer>());
 	m_Layers.push_back(std::make_unique<SkyboxLayer>());
 	m_Layers.push_back(std::make_unique<MenuLayer>());

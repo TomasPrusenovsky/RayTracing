@@ -10,6 +10,12 @@ namespace rt
 	{
 		m_Shapes.push_back(std::make_unique<Sphere>(shape));
 	}
+
+	void ShapeWorld::Add(const Plane& plane)
+	{
+		m_Shapes.push_back(std::make_unique<Plane>(plane));
+	}
+
 	HitInfo ShapeWorld::Intesection(const Ray& ray)
 	{
 		HitInfo closest;

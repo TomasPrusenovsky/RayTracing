@@ -18,8 +18,10 @@ namespace rt
 
 	void RayTracer::Trace()
 	{
+		Timer timer(m_RenderTime.timeDiff, m_RenderTime.FPS);
+
 		if (m_FrameIndex == 1)
-			m_AccumulationImage = std::make_unique<AccImage>(m_Image->Width(), m_Image->Height());
+			m_AccumulationImage->Clear();
 
 		PerPixel([this](uint32_t x, uint32_t y)
 		{
@@ -39,7 +41,10 @@ namespace rt
 		if (m_Settings.accumulate)
 			m_FrameIndex++;
 		else
+		{
 			m_FrameIndex = 1;
+			m_ImageReset = true;
+		}
 	}
 
 	void RayTracer::Raster()

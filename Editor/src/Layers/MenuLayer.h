@@ -9,9 +9,11 @@ public:
 
 private:
 	void SavePng();
+	void MenuBar();
 
 	bool m_ShowSavePopup = false;
 	bool m_SaveEmpty = false;
+	bool m_ShowStats = false;
 
 	std::string m_Filename;
 };

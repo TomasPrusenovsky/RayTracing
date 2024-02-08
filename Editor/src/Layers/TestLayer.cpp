@@ -16,10 +16,13 @@ TestLayer::TestLayer()
 	Sphere cSphere(0.6f, point(1.0f, 0.0f, -1.0f), yellow);
 	Sphere mSphere(0.6f, point(1.0f, 0.0f, -1.0f), magenta);
 
-	world.Add(blueSphere);
-	world.Add(redSphere);
+	Plane pla{ point{0.f}, glm::vec3(0.0f, 1.0f, 0.0f), cyan};
+
+	//world.Add(blueSphere);
+	//world.Add(redSphere);
 	world.Add(cSphere);
 	world.Add(mSphere);
+	world.Add(pla);
 }
 
 void TestLayer::OnUpdate()

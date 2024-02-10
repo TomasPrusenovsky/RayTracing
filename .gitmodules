@@ -6,7 +6,5 @@
 	url = https://github.com/TomasPrusenovsky/imgui.git
 	branch = docking
 [submodule "Editor/vendor/glfw"]
-
-
 	path = Editor/vendor/glfw
 	url = https://github.com/glfw/glfw.git

@@ -48,6 +48,33 @@ void Window::OnUpdate() const
 	glfwSwapBuffers(m_Window);
 }
 
+bool Window::MousePressed(int key) const
+{
+	return glfwGetMouseButton(m_Window, key) == GLFW_PRESS;
+}
+
+bool Window::MouseReleased(int key) const
+{
+	return glfwGetMouseButton(m_Window, key) == GLFW_RELEASE;
+}
+
+glm::vec2 Window::MousePos() const
+{
+	double x, y;
+	glfwGetCursorPos(m_Window, &x, &y);
+	return { (float)x, (float)y };
+}
+
+void Window::MousePos(float x, float y) const
+{
+	glfwSetCursorPos(m_Window, (double)x, (double)y);
+}
+
+bool Window::KeyPressed(int key) const
+{
+	return glfwGetKey(m_Window, key) == GLFW_PRESS;
+}
+
 void Window::InitializeOpenGL()
 {
 	s_OpenGLInitialized = true;
@@ -73,4 +100,8 @@ void Window::GLFWCallBacks()
 			data.Width = width;
 			data.Height = height;
 		});
+
+	// TODO: 
+	//glfwSetCursorPosCallback(m_Window, [](GLFWwindow* windwo, int x,))
+
 }

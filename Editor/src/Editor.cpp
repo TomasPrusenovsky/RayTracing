@@ -4,6 +4,7 @@
 #include "Layers/SkyboxLayer.h"
 #include "Layers/MenuLayer.h"
 #include "Layers/TestLayer.h"
+#include "Layers/MoveLayer.h"
 
 Editor::Editor() : m_Window(Window("Ray Tracer")),
 m_ImGui(m_Window.GetWinPtr())
@@ -14,6 +15,7 @@ m_ImGui(m_Window.GetWinPtr())
 	m_Layers.push_back(std::make_unique<SkyboxLayer>());
 	m_Layers.push_back(std::make_unique<MenuLayer>());
 	m_Layers.push_back(std::make_unique<TestLayer>());
+	m_Layers.push_back(std::make_unique<MoveLayer>(m_Window));
 }
 
 void Editor::Run()

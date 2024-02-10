@@ -7,4 +7,6 @@ public:
 	~TestLayer() override = default;
 	void OnUpdate() override;
 	void OnImGuiUpdate() override;
+
+private:
 };

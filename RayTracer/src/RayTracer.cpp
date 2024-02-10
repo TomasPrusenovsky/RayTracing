@@ -11,13 +11,12 @@ namespace rt
 	RayTracer::RayTracer(int width, int height) :
 		m_Image(std::make_unique<Image>(width, height)),
 		m_AccumulationImage(std::make_unique<AccImage>(width, height)), // Just for debug it will get recalculated later
-		m_Camera(60.0f, glm::vec3{ 0.0f }, { 0.0f, 0.0f, 1.0f })
+		m_Camera(glm::vec3(0, 0, 3), glm::vec3(0, 0, 1.5), glm::vec3(0, 1, 0), 90.0f, (float)width / (float)height)
 	{
-		m_Camera.Recalculate(*m_Image);
 	}
 
 	void RayTracer::Trace()
-	{
+	{	
 		Timer timer(m_RenderTime.timeDiff, m_RenderTime.FPS);
 
 		if (m_FrameIndex == 1)
@@ -25,7 +24,7 @@ namespace rt
 
 		PerPixel([this](uint32_t x, uint32_t y)
 		{
-				Ray ray = m_Camera.GetRay(x, y, m_Settings.antialiasing);
+				Ray ray = m_Camera.get_ray(x, y, m_Settings.antialiasing, glm::vec2((float)m_Image->Width(), (float)m_Image->Height()));
 
 				m_AccumulationImage->Accumulate(x, y, Trace(ray));
 				color accumulationColor = m_AccumulationImage->PixelColor(x, y);
@@ -54,7 +53,7 @@ namespace rt
 			{
 				for (int x = 0; x < m_Image->Width(); ++x)
 				{
-					Ray ray = m_Camera.GetRay(x, y, m_Settings.antialiasing);
+					Ray ray = m_Camera.get_ray(x, y, m_Settings.antialiasing, glm::vec2((float)m_Image->Width(), (float)m_Image->Height()));
 
 
 					color col = Raster(ray);
@@ -125,7 +124,7 @@ namespace rt
 
 		m_Image = std::make_unique<Image>(width, height);
 		m_AccumulationImage = std::make_unique<AccImage>(width, height);
-		m_Camera.Recalculate(*m_Image);
+		m_Camera.Recalculate(m_Image->AspectRatio());
 	}
 
 	void RayTracer::PerPixel(std::function<void(uint32_t, uint32_t)> func)

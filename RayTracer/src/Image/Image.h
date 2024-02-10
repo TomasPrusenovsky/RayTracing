@@ -23,6 +23,7 @@ namespace rt
 		const float AspectRatio() const { return (float)m_Windth / (float)m_Height; }
 		const int Width() const { return m_Windth; }
 		const int Height() const { return m_Height; }
+		glm::vec2 DimensionsVec() const { return { m_Windth, m_Height }; }
 		const int Chanels() const { return m_Chanels; }
 		const float* GetData() const { return m_Data.get(); }
 		const uint32_t Size() const { return m_Windth * m_Height * m_Chanels; }

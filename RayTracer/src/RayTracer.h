@@ -25,6 +25,7 @@ namespace rt
 		const Image& GetImage() const { return *m_Image; }
 		const World::ShapeList& Shapes() const { return m_World.Shapes(); }
 		World& RtWorld() { return m_World; }
+		Camera& GetCamera() { return m_Camera; }
 
 		struct Settings
 		{

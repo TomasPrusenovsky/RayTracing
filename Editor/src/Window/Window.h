@@ -2,6 +2,8 @@
 #include "../rtpch.h"
 #include "GLFW/glfw3.h"
 
+#include <glm/glm.hpp>
+
 class Window
 {
 public:
@@ -13,6 +15,8 @@ public:
 	~Window();
 
 	void SetVSync(bool enabled);
+	void HideCursor() const { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); };
+	void ShowCursor() const { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
 
 	void OnUpdate() const;
 
@@ -22,6 +26,13 @@ public:
 	bool IsRunning() const { return m_Data.ShouldRun; }
 
 	GLFWwindow* GetWinPtr() const { return m_Window; }
+
+	bool MousePressed(int key) const;
+	bool MouseReleased(int key) const;
+	glm::vec2 MousePos() const; // TODO: set callback
+	void MousePos(float x, float y) const;
+
+	bool KeyPressed(int key) const;
 
 private:
 	static void InitializeOpenGL();

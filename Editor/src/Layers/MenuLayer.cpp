@@ -13,18 +13,21 @@ void MenuLayer::MenuBar()
 	if (ImGui::BeginMenu("Image"))
 	{
 		if (ImGui::MenuItem("Save"))
-		{
 			m_ShowSavePopup = true;
-		}
 		ImGui::EndMenu();
 	}
 
 	if (ImGui::BeginMenu("Stats"))
 	{
 		if (ImGui::MenuItem("Render stats"))
-		{
 			m_ShowStats = true;
-		}
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("Settings"))
+	{
+		if (ImGui::MenuItem("Camera"))
+			m_CameraSettings = true;
 		ImGui::EndMenu();
 	}
 
@@ -43,6 +46,13 @@ void MenuLayer::OnImGuiUpdate()
 		ImGui::Text("%.3fFPS", s_RayTracer.RenderTime().FPS);
 		ImGui::End();
 
+	}
+
+	if (m_CameraSettings)
+	{
+		ImGui::Begin("Camera", &m_CameraSettings);
+		ImGui::SliderAngle("FOV", &s_RayTracer.GetCamera().GetSettings().vfov, 1.0f, 150.f);;
+		ImGui::End();
 	}
 
 	if (m_ShowSavePopup)

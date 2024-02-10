@@ -37,7 +37,7 @@ namespace rt
 					m_Image->SetPixel(x, y, accumulationColor);
 		});
 
-		if (m_Settings.accumulate)
+		if (m_Settings.accumulate and !m_Camera.IsMoving())
 			m_FrameIndex++;
 		else
 		{

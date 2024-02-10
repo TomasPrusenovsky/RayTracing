@@ -84,70 +84,6 @@ namespace rt
         m_viewPlane.Recalculate(m_position, viewport_width * u, viewport_height * v, m_orientation);
     }
 
-    void Camera::CalsculateMovement(GLFWwindow* window, float diff, glm::vec2 dim)
-    {
-        double mouseX, mouseY;
-        float winWidth = dim.x;
-        float winHeight = dim.y;
-
-
-        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-        {
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-            m_isMoving = true;
-
-            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            {
-                m_position += m_settings.speed * -m_orientation * diff;
-            }
-            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            {
-                m_position += m_settings.speed * -glm::normalize(glm::cross(m_orientation, m_up)) * diff;
-            }
-            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            {
-                m_position += m_settings.speed * m_orientation * diff;
-            }
-            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            {
-                m_position += m_settings.speed * glm::normalize(glm::cross(m_orientation, m_up)) * diff;
-            }
-            if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-            {
-                m_position += m_settings.speed * m_up * diff;
-            }
-            if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-            {
-                m_position += m_settings.speed * -m_up * diff;
-            }
-
-            if (m_firstClick)
-            {
-                glfwSetCursorPos(window, winWidth / 2, winHeight / 2);
-                m_firstClick = false;
-            }
-
-            glfwGetCursorPos(window, &mouseX, &mouseY);
-            float mouseXNorm = 2.0f * (float)mouseX / (float)winWidth - 1.0f;
-            float mouseYNorm = 2.0f * (float)mouseY / (float)winHeight - 1.0f;
-
-
-            m_angles.x += mouseXNorm * m_settings.mouseSensitivity * diff;
-            m_angles.y -= mouseYNorm * m_settings.mouseSensitivity * diff;
-            m_angles.y = glm::clamp(m_angles.y, -89.0f, 89.0f);
-
-            glfwSetCursorPos(window, winWidth / 2, winHeight / 2);
-
-        }
-        else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
-        {
-            m_isMoving = false;
-            m_firstClick = true;
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-        }
-    }
-
     Ray Camera::get_ray(uint32_t x, uint32_t y, bool antialiasing, glm::vec2 imageSize) const
     {
         const glm::vec2 offset = antialiasing ? Random::Vec2(-0.1f, 0.1f) : glm::vec2(0.0f);
@@ -155,5 +91,4 @@ namespace rt
         float t = ((float)(y) / (float)imageSize.y) + offset.y;
         return Ray(m_viewPlane.origin, m_viewPlane.lower_left_corner + s * m_viewPlane.horizontal + t * m_viewPlane.vertical - m_viewPlane.origin);
     }
-
 } // rt

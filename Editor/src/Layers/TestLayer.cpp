@@ -18,8 +18,8 @@ TestLayer::TestLayer()
 
 	Plane pla{ point{0.f}, glm::vec3(0.0f, 1.0f, 0.0f), cyan};
 
-	//world.Add(blueSphere);
-	//world.Add(redSphere);
+	world.Add(blueSphere);
+	world.Add(redSphere);
 	world.Add(cSphere);
 	world.Add(mSphere);
 	world.Add(pla);

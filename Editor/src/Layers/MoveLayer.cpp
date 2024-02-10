@@ -21,14 +21,16 @@ void MoveLayer::CalculateMovement()
     float winHeight = s_RayTracer.GetImage().DimensionsVec().y;
 
     float deltaTime = s_RayTracer.RenderTime().timeDiff;
-    auto& position = s_RayTracer.GetCamera().Position();
-    auto& orientation = s_RayTracer.GetCamera().Orientation();
-    auto& angles = s_RayTracer.GetCamera().Angles();
+
+    auto& camera = s_RayTracer.GetCamera();
+    auto& position = camera.Position();
+    auto& orientation = camera.Orientation();
+    auto& angles = camera.Angles();
 
     if (m_ActiveWindow.MousePressed(GLFW_MOUSE_BUTTON_RIGHT))
     {
         m_ActiveWindow.HideCursor();
-        m_Settings.isMoving = true;
+        camera.IsMoving(true);
 
         if (m_ActiveWindow.KeyPressed(GLFW_KEY_W))
         {
@@ -74,7 +76,7 @@ void MoveLayer::CalculateMovement()
     }
     else if (m_ActiveWindow.MouseReleased(GLFW_MOUSE_BUTTON_RIGHT))
     {
-        m_Settings.isMoving = false;
+        camera.IsMoving(false);
         m_Settings.firstClick = true;
         m_ActiveWindow.ShowCursor();
     }

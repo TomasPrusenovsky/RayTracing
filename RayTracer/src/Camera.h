@@ -1,13 +1,13 @@
 #pragma once
 #include "Utils/Ray.h"
 #include "Image/Image.h"
-#include "../glfw/include/GLFW/glfw3.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/glm.hpp"
 #include<glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <imgui.h>
 
 namespace rt
 {
@@ -87,8 +87,8 @@ namespace rt
         Ray get_ray(uint32_t x, uint32_t y, bool antialiasing, glm::vec2 imageSize) const;
 
         void Recalculate(float aspect_ratio);
-        bool& IsMoving() { return m_isMoving; }
-        void CalsculateMovement(GLFWwindow* window, float diff, glm::vec2 dim);
+        bool IsMoving() const { return m_isMoving; }
+        void IsMoving(bool state) { m_isMoving = state; }
 
         glm::vec3& Position() { return m_position; }
         glm::vec3& Orientation() { return m_orientation; }
@@ -111,6 +111,4 @@ namespace rt
         glm::vec3 m_orientation;
         glm::vec2 m_angles = glm::vec2(0.0f);
     };
-
-
 } // rt

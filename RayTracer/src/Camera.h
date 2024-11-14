@@ -47,7 +47,7 @@ namespace rt
 
 
 
-    static struct ViewPlane
+	struct ViewPlane
     {
         glm::vec3 origin;
         glm::vec3 lower_left_corner;
@@ -66,7 +66,7 @@ namespace rt
         }
     };
 
-    static struct Settings
+    struct Settings
     {
         float vfov; // vertical field-of-view in RADIANS
         float speed = 10.0f;

@@ -12,7 +12,7 @@ namespace rt
 		color specularColor = color{ 1.0f };
 		float emissionStrenght = 0.0f;
 		float smoothness = 0.90f;
-		float specularProbability = 1.0f;
+		float specularProbability = 0.0f;
 		bool isMetalic = false;
 	};
 

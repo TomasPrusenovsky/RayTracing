@@ -14,5 +14,6 @@ namespace rt
 		std::string m_Name = "Plane";
 		point m_Point;
 		glm::vec3 m_Normal;
+		static unsigned int s_Instance;
 	};
 }

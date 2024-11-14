@@ -8,7 +8,7 @@ namespace rt
 	Sphere::Sphere(float radius, point position, Material material) :
 		m_Radius(radius), m_Position(position)
 	{
-		m_Name += std::to_string(s_Instance);
+		m_Name += " " + std::to_string(s_Instance);
 		++s_Instance;
 		m_Material = material;
 	}

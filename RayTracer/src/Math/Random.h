@@ -23,9 +23,20 @@ namespace rt {
             return min + (s_Distribution(s_RandomEngine) % (max - min + 1));
         }
 
+        static uint32_t PCG_Hash(uint32_t input) {
+            uint32_t state = input * 747796405u + 2891336453u;
+            uint32_t word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
+            return (word >> 22u) ^ word;
+        }
+
         static float Float()
         {
             return static_cast<float>(s_Distribution(s_RandomEngine)) / static_cast<float>(std::numeric_limits<uint32_t>::max());
+        }
+
+        static float Float(uint32_t& seed) {
+            seed = PCG_Hash(seed);
+            return (float)seed / (float)std::numeric_limits<uint32_t>::max();
         }
 
         //float between min and max
@@ -49,9 +60,13 @@ namespace rt {
             return {Float() * (max - min) + min, Float() * (max - min) + min, Float() * (max - min) + min};
         }
 
-        static glm::vec3 InUnitSphere()
+        static glm::vec3 InUnitSphere(uint32_t& seed)
         {
-            return glm::normalize(Vec3(-1.0f, 1.0f));
+            return glm::normalize(glm::vec3(
+                Float(seed) * 2.0f - 1.0f,
+                Float(seed) * 2.0f - 1.0f,
+                Float(seed) * 2.0f - 1.0f
+            ));
         }
     private:
         static thread_local std::mt19937 s_RandomEngine;

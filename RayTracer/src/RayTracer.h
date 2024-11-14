@@ -57,6 +57,7 @@ namespace rt
 		ImagePtr m_Image;
 		std::unique_ptr<AccImage> m_AccumulationImage;
 		const Scene* m_ActiveScene = nullptr;
+		uint32_t seed = 99;
 
 	private:
 		color Trace(Ray& ray);

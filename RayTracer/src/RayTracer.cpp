@@ -3,6 +3,7 @@
 #include "Math/Math.h"
 
 #include <iostream>
+#include <thread>
 #include <execution>
 
 
@@ -13,6 +14,7 @@ namespace rt
 		m_AccumulationImage(std::make_unique<AccImage>(width, height)), // Just for debug it will get recalculated later
 		m_Camera(glm::vec3(0, 0, 3), glm::vec3(0, 0, 1.5), glm::vec3(0, 1, 0), 90.0f, (float)width / (float)height)
 	{
+		Random::Init();
 	}
 
 	void RayTracer::Trace()
@@ -44,6 +46,7 @@ namespace rt
 			m_FrameIndex = 1;
 			m_ImageReset = true;
 		}
+		seed *= m_FrameIndex;
 	}
 
 	void RayTracer::Raster()
@@ -81,14 +84,15 @@ namespace rt
 
 		for (int i = 0; i < m_Settings.maxBounces; i++)
 		{
+			seed += i;
 			HitInfo hitInfo = m_World.Intesection(ray);
 			if (hitInfo.didHit)
 			{
 				Material material = hitInfo.material;
 				ray.Origin(hitInfo.hitPoint);
-				glm::vec3 diffuseDir = glm::normalize(hitInfo.normal + Random::InUnitSphere());
+				glm::vec3 diffuseDir = glm::normalize(hitInfo.normal + Random::InUnitSphere(seed));
 				glm::vec3 specularDir = glm::reflect(ray.Direction(), hitInfo.normal);
-				bool isSpecularBounce = material.specularProbability >= Random::Float();
+				bool isSpecularBounce = material.specularProbability >= Random::Float(seed);
 				if (material.isMetalic)
 					ray.Direction(glm::mix(diffuseDir, specularDir, material.smoothness));
 				else
@@ -129,13 +133,42 @@ namespace rt
 
 	void RayTracer::PerPixel(std::function<void(uint32_t, uint32_t)> func)
 	{
-		std::for_each(std::execution::par, m_Image->Begin(), m_Image->End(),
-			[&func, this](uint32_t y)
+		// Number of threads based on hardware concurrency
+		const auto num_threads = std::thread::hardware_concurrency();
+		std::vector<std::thread> threads;
+
+		// Lambda function for processing a range of rows in parallel
+		auto process_rows = [&](uint32_t start_y, uint32_t end_y) {
+			for (uint32_t y = start_y; y < end_y; ++y)
 			{
-				for (int x = 0; x < m_Image->Width(); ++x)
+				for (uint32_t x = 0; x < m_Image->Width(); ++x)
 				{
 					func(x, y);
 				}
-			});
+			}
+		};
+
+		// Calculate the row range for each thread
+		uint32_t rows_per_thread = m_Image->Height() / num_threads;
+		uint32_t remaining_rows = m_Image->Height() % num_threads;
+		uint32_t start_y = 0;
+
+		for (uint32_t i = 0; i < num_threads; ++i)
+		{
+			// Adjust row range for each thread
+			uint32_t end_y = start_y + rows_per_thread + (i < remaining_rows ? 1 : 0);
+
+			// Launch thread for the specific row range
+			threads.emplace_back(process_rows, start_y, end_y);
+			start_y = end_y;
+		}
+
+		// Wait for all threads to complete
+		for (auto& thread : threads)
+		{
+			if (thread.joinable())
+				thread.join();
+		}
 	}
+
 } // rt

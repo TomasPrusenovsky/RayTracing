@@ -29,7 +29,11 @@ void ImGuiRenderer::Init()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	ImGui::StyleColorsDark();
-	io.FontGlobalScale = Platform::GetDpiScale();
+
+	float scale;
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	glfwGetMonitorContentScale(monitor, &scale, nullptr);
+	io.FontGlobalScale = scale;
 
 	ImGui_ImplGlfw_InitForOpenGL(m_GLFWwindow, true);
 	ImGui_ImplOpenGL3_Init(m_GLSL_version.c_str());
